@@ -1,0 +1,79 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:GoldenStandard.ViewModels"
+             xmlns:models="using:GoldenStandard.Models"
+             x:Class="GoldenStandard.Views.ProductListView"
+             x:DataType="vm:ProductListViewModel">
+	<Grid RowDefinitions="Auto, Auto, *" Background="#F5F5F5">
+		<Border Grid.Row="0" Background="#3A3A3A" Padding="15">
+			<TextBlock Text="GOLDEN STANDARD" Foreground="#F0F0F0" LetterSpacing="2"
+                       FontWeight="Light" HorizontalAlignment="Center" FontSize="18"/>
+		</Border>
+
+		<Border Grid.Row="1" Background="#ECECEC" BorderBrush="#DCDCDC" BorderThickness="0,0,0,1" Padding="12">
+			<StackPanel Spacing="10">
+				<TextBox Text="{Binding SearchText}" Watermark="Поиск..."
+                         Background="White" BorderBrush="#CCCCCC" CornerRadius="5"/>
+
+				<Grid ColumnDefinitions="*, *">
+					<ComboBox Grid.Column="0" ItemsSource="{Binding Categories}"
+                              SelectedItem="{Binding SelectedCategory}" Margin="0,0,5,0" HorizontalAlignment="Stretch"/>
+					<ComboBox Grid.Column="1" ItemsSource="{Binding SortModes}"
+                              SelectedItem="{Binding SelectedSortMode}" Margin="5,0,0,0" HorizontalAlignment="Stretch"/>
+				</Grid>
+			</StackPanel>
+		</Border>
+
+		<ScrollViewer Grid.Row="2">
+			<ItemsControl ItemsSource="{Binding Products}"
+						  Margin="10"
+						  HorizontalAlignment="Left"
+						  VerticalAlignment="Top">
+				<ItemsControl.ItemsPanel>
+					<ItemsPanelTemplate>
+						<UniformGrid Columns="2"/>
+					</ItemsPanelTemplate>
+				</ItemsControl.ItemsPanel>
+				<ItemsControl.ItemTemplate>
+					<DataTemplate x:DataType="models:Product">
+						<Button Background="Transparent" Padding="5"
+								Command="{Binding $parent[UserControl].((vm:ProductListViewModel)DataContext).OpenProduct}"
+								CommandParameter="{Binding}">
+
+							<Border Background="White" Width="170" Height="245" CornerRadius="12"
+									BoxShadow="0 2 5 0 #15000000">
+								<Grid RowDefinitions="110, *">
+									<Border Grid.Row="0" Background="#F9F9F9" CornerRadius="12,12,0,0">
+										<Image Source="/Assets/avalonia-logo.ico" Opacity="0.6" Margin="25"/>
+									</Border>
+
+									<StackPanel Grid.Row="1" Margin="10,8" Spacing="2">
+										<TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="13"
+												   Height="34" TextWrapping="Wrap" TextTrimming="CharacterEllipsis"
+												   Foreground="#333333"/>
+
+										<TextBlock Text="{Binding Manufacturer}" FontSize="10"
+												   Foreground="#888888" TextTrimming="CharacterEllipsis"
+												   Margin="0,0,0,2"/>
+
+										<TextBlock Text="{Binding Price, StringFormat={}{0} ₽}"
+												   Foreground="#222222" FontWeight="Heavy" FontSize="16"/>
+
+										<StackPanel Orientation="Horizontal" Spacing="6" Margin="0,2,0,0">
+											<TextBlock Text="{Binding AverageRating, StringFormat='★ {0}'}"
+													   FontSize="11" FontWeight="Bold" Foreground="#999999"/>
+											<Border Background="{Binding QualityColor}" CornerRadius="4" Padding="4,1">
+												<TextBlock Text="{Binding QualityScore, StringFormat={}{0}%}"
+														   FontSize="9" Foreground="White" FontWeight="Bold"/>
+											</Border>
+										</StackPanel>
+									</StackPanel>
+								</Grid>
+							</Border>
+						</Button>
+					</DataTemplate>
+				</ItemsControl.ItemTemplate>
+			</ItemsControl>
+		</ScrollViewer>
+	</Grid>
+</UserControl>

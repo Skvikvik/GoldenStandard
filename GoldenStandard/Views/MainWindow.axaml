@@ -1,0 +1,27 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:GoldenStandard.ViewModels"
+        xmlns:views="using:GoldenStandard.Views"
+        x:Class="GoldenStandard.Views.MainWindow"
+        x:DataType="vm:MainViewModel"
+        Title="Золотой Стандарт"
+        Width="400" Height="700"
+        WindowStartupLocation="CenterScreen">
+
+	<Window.DataTemplates>
+		<DataTemplate DataType="{x:Type vm:LoginViewModel}">
+			<views:LoginView/>
+		</DataTemplate>
+		<DataTemplate DataType="{x:Type vm:RegistrationViewModel}">
+			<views:RegistrationView/>
+		</DataTemplate>
+		<DataTemplate DataType="{x:Type vm:ProductListViewModel}">
+			<views:ProductListView/>
+		</DataTemplate>
+		<DataTemplate DataType="{x:Type vm:ProductDetailViewModel}">
+			<views:ProductDetailView/>
+		</DataTemplate>
+	</Window.DataTemplates>
+
+	<TransitioningContentControl Content="{Binding CurrentPage}" />
+</Window>
