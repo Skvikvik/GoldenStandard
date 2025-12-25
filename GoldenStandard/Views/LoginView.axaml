@@ -3,11 +3,37 @@
              xmlns:vm="using:GoldenStandard.ViewModels"
              x:Class="GoldenStandard.Views.LoginView"
              x:DataType="vm:LoginViewModel">
+
 	<StackPanel Margin="30" VerticalAlignment="Center" Spacing="15">
-		<TextBlock Text="ВХОД" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center"/>
-		<TextBox Watermark="Email" Text="{Binding Email}"/>
-		<TextBox Watermark="Пароль" PasswordChar="*" Text="{Binding Password}"/>
-		<Button Content="ВОЙТИ" Command="{Binding LoginCommand}" Background="#FFD700" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Height="45"/>
-		<Button Content="Регистрация" Command="{Binding GoToRegister}" Background="Transparent" HorizontalAlignment="Center"/>
+		<TextBlock Text="ВХОД"
+                   FontSize="24"
+                   FontWeight="Bold"
+                   HorizontalAlignment="Center"/>
+
+		<TextBox Watermark="Email"
+                 Text="{Binding Email}"/>
+
+		<TextBox Watermark="Пароль"
+                 PasswordChar="*"
+                 Text="{Binding Password}"/>
+
+		<TextBlock Text="{Binding ErrorMessage}"
+                   Foreground="#E74C3C"
+                   FontSize="12"
+                   HorizontalAlignment="Center"
+                   TextWrapping="Wrap"
+                   IsVisible="{Binding ErrorMessage, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
+
+		<Button Content="ВОЙТИ"
+                Command="{Binding LoginCommand}"
+                Background="#FFD700"
+                HorizontalAlignment="Stretch"
+                HorizontalContentAlignment="Center"
+                Height="45"/>
+
+		<Button Content="Регистрация"
+                Command="{Binding GoToRegister}"
+                Background="Transparent"
+                HorizontalAlignment="Center"/>
 	</StackPanel>
 </UserControl>
