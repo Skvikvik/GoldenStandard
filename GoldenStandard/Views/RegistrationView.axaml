@@ -2,29 +2,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:vm="using:GoldenStandard.ViewModels"
              x:Class="GoldenStandard.Views.RegistrationView"
-             x:DataType="vm:RegistrationViewModel">
-
-	<StackPanel Margin="30" VerticalAlignment="Center" Spacing="15">
-		<TextBlock Text="РЕГИСТРАЦИЯ" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center"/>
-
-		<TextBox Watermark="Email" Text="{Binding Email}"/>
-		<TextBox Watermark="Пароль" PasswordChar="*" Text="{Binding Password}"/>
-
-		<TextBlock Text="{Binding ErrorMessage}"
-                   Foreground="Red"
-                   FontSize="12"
-                   HorizontalAlignment="Center"
-                   IsVisible="{Binding ErrorMessage, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
-
-		<Button Content="СОЗДАТЬ АККАУНТ"
-                Command="{Binding RegisterCommand}"
-                Background="#FFD700"
-                HorizontalAlignment="Stretch"
-                HorizontalContentAlignment="Center"/>
-
-		<Button Content="Назад ко входу"
-                Command="{Binding GoToLogin}"
-                HorizontalAlignment="Center"
-                Background="Transparent"/>
-	</StackPanel>
+             x:DataType="vm:RegistrationViewModel"> 
+    <StackPanel Margin="30" VerticalAlignment="Center" Spacing="15">
+        <TextBlock Text="РЕГИСТРАЦИЯ" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center"/>
+        <TextBox Watermark="Логин" Text="{Binding Username}"/>
+        <TextBox Watermark="Пароль" PasswordChar="*" Text="{Binding Password}"/>
+        <TextBlock Text="{Binding ErrorMessage}" Foreground="Red" HorizontalAlignment="Center"/>
+        <Button Content="СОЗДАТЬ АККАУНТ" Command="{Binding RegisterCommand}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Background="#FFD700"/>
+        <Button Content="Назад" Command="{Binding GoToLogin}" HorizontalAlignment="Center" Background="Transparent"/>
+    </StackPanel>
 </UserControl>

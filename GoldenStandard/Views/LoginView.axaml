@@ -10,8 +10,8 @@
                    FontWeight="Bold"
                    HorizontalAlignment="Center"/>
 
-		<TextBox Watermark="Email"
-                 Text="{Binding Email}"/>
+		<TextBox Watermark="Введите логин"
+                 Text="{Binding Username}"/>
 
 		<TextBox Watermark="Пароль"
                  PasswordChar="*"

@@ -5,23 +5,35 @@
         x:Class="GoldenStandard.Views.MainWindow"
         x:DataType="vm:MainViewModel"
         Title="Золотой Стандарт"
-        Width="400" Height="700"
+        Width="450" Height="800"
         WindowStartupLocation="CenterScreen">
 
 	<Window.DataTemplates>
 		<DataTemplate DataType="{x:Type vm:LoginViewModel}">
 			<views:LoginView/>
 		</DataTemplate>
+
 		<DataTemplate DataType="{x:Type vm:RegistrationViewModel}">
 			<views:RegistrationView/>
 		</DataTemplate>
+
 		<DataTemplate DataType="{x:Type vm:ProductListViewModel}">
 			<views:ProductListView/>
 		</DataTemplate>
+
 		<DataTemplate DataType="{x:Type vm:ProductDetailViewModel}">
 			<views:ProductDetailView/>
 		</DataTemplate>
+
+		<DataTemplate DataType="{x:Type vm:AddProductViewModel}">
+			<views:AddProductView/>
+		</DataTemplate>
+
+		<DataTemplate DataType="{x:Type vm:ProfileViewModel}">
+			<views:ProfileView/>
+		</DataTemplate>
 	</Window.DataTemplates>
 
-	<TransitioningContentControl Content="{Binding CurrentPage}" />
+	<ContentControl Content="{Binding CurrentPage}" />
+
 </Window>

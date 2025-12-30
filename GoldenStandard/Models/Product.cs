@@ -1,45 +1,40 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace GoldenStandard.Models;
 
-public class Review
-{
-    public string User { get; set; } = "Пользователь";
-    public string Text { get; set; } = "";
-    public int Stars { get; set; }
-    public DateTime Date { get; set; } = DateTime.Now;
-}
-
 public class Product
 {
+    public int Id { get; set; }
     public string Name { get; set; } = "";
-    public string Manufacturer { get; set; } = "";
-    public string Description { get; set; } = "Продукт проверен алгоритмом 'Золотой Стандарт'.";
-    public double Price { get; set; }
-    public List<string> Ingredients { get; set; } = new();
-    public ObservableCollection<Review> Reviews { get; set; } = new();
+    public string Description { get; set; } = "";
+    public string Composition { get; set; } = "";
+    public decimal Price { get; set; }
+    public double Rating { get; set; }
+    public int ReviewsCount { get; set; }
+    public List<Review> Reviews { get; set; } = new();
 
-    public double AverageRating => Reviews.Any() ? Math.Round(Reviews.Average(r => r.Stars), 1) : 0.0;
+    public string Image { get; set; } = "";
 
-    public int QualityScore
+    public int QualityPercentage
     {
         get
         {
-            if (Ingredients == null || !Ingredients.Any()) return 0;
-            double score = 100.0;
-            var penalties = new Dictionary<string, double>(StringComparer.OrdinalIgnoreCase)
-            {
-                { "Сахар", 8.0 }, { "Пальмовое масло", 20.0 }, { "Е-", 15.0 },
-                { "Консервант", 10.0 }, { "Ароматизатор", 4.0 }, { "Глутамат", 20.0 }
-            };
-            foreach (var ingredient in Ingredients)
-                foreach (var penalty in penalties)
-                    if (ingredient.Contains(penalty.Key, StringComparison.OrdinalIgnoreCase)) score -= penalty.Value;
-            return (int)Math.Clamp(score, 0, 100);
+            int score = 100;
+            string comp = (Composition ?? "").ToLower();
+            string desc = (Description ?? "").ToLower();
+            string fullText = comp + " " + desc;
+
+            if (fullText.Contains("сахар")) score -= 15;
+            if (fullText.Contains("пальмовое масло")) score -= 20;
+            if (fullText.Contains("гмо")) score -= 25;
+            if (fullText.Contains("е-") || fullText.Contains("добавка е")) score -= 10;
+            if (fullText.Contains("консервант")) score -= 5;
+            if (fullText.Contains("краситель")) score -= 5;
+            if (fullText.Contains("глутамат")) score -= 10;
+
+            return Math.Max(0, score);
         }
     }
-    public string QualityColor => QualityScore > 80 ? "#27AE60" : (QualityScore > 50 ? "#F39C12" : "#C0392B");
 }

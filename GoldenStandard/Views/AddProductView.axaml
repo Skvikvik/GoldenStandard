@@ -1,0 +1,56 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:GoldenStandard.ViewModels"
+             x:Class="GoldenStandard.Views.AddProductView"
+             x:DataType="vm:AddProductViewModel">
+
+	<Grid Background="#F5F5F5">
+		<ScrollViewer>
+			<Border Background="White" CornerRadius="15" Padding="25" Margin="20"
+                    MaxWidth="500" HorizontalAlignment="Stretch" BoxShadow="0 4 15 0 #20000000">
+				<StackPanel Spacing="15">
+					<TextBlock Text="ДОБАВЛЕНИЕ ТОВАРА" FontSize="20" FontWeight="Bold"
+                               Foreground="#3A3A3A" HorizontalAlignment="Center" Margin="0,0,0,10"/>
+
+					<StackPanel Spacing="5">
+						<TextBlock Text="Название товара*" FontWeight="SemiBold"/>
+						<TextBox Text="{Binding Name}" Watermark="Введите название..."/>
+					</StackPanel>
+
+					<StackPanel Spacing="5">
+						<TextBlock Text="Описание и состав*" FontWeight="SemiBold"/>
+						<TextBox Text="{Binding Description}"
+                                 Watermark="Введите описание и ингредиенты (напр: молоко, сахар)..."
+                                 Height="120"
+                                 AcceptsReturn="True"
+                                 TextWrapping="Wrap"/>
+						<TextBlock Text="Качество будет рассчитано автоматически по тексту описания"
+                                   FontSize="10" Foreground="Gray"/>
+					</StackPanel>
+
+					<StackPanel Spacing="5">
+						<TextBlock Text="Цена (₽)*" FontWeight="SemiBold"/>
+						<NumericUpDown Value="{Binding Price}" Minimum="0" Increment="100" FormatString="0"/>
+					</StackPanel>
+
+					<StackPanel Spacing="5">
+						<TextBlock Text="Ссылка на изображение" FontWeight="SemiBold"/>
+						<TextBox Text="{Binding ImageUrl}" Watermark="https://example.com/image.jpg"/>
+					</StackPanel>
+
+					<Grid ColumnDefinitions="*, *" Margin="0,20,0,0">
+						<Button Grid.Column="0" Content="ОТМЕНА" Command="{Binding CancelCommand}"
+                                HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+                                Background="Transparent" BorderBrush="#3A3A3A" BorderThickness="1" Margin="0,0,5,0"/>
+
+						<Button Grid.Column="1" Content="СОЗДАТЬ" Command="{Binding SaveCommand}"
+                                HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+                                Background="Goldenrod" Foreground="White" FontWeight="Bold" Margin="5,0,0,0"/>
+					</Grid>
+
+					<ProgressBar IsIndeterminate="True" IsVisible="{Binding IsBusy}" Height="2" Margin="0,10,0,0"/>
+				</StackPanel>
+			</Border>
+		</ScrollViewer>
+	</Grid>
+</UserControl>

@@ -1,12 +1,14 @@
 using Avalonia.Controls;
+using Avalonia.ReactiveUI;
+using GoldenStandard.ViewModels;
 
-namespace GoldenStandard.Views
+namespace GoldenStandard.Views;
+
+public partial class ProductListView : ReactiveUserControl<ProductListViewModel>
 {
-    public partial class ProductListView : UserControl // Тут должно быть ListView!
+    public ProductListView()
     {
-        public ProductListView()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
+        // Мы убрали логику ScrollChanged, теперь всё работает только через кнопки и команды ViewModel
     }
 }
