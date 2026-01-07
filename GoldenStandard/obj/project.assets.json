@@ -1825,11 +1825,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\laste\\Desktop\\v2 — копия\\GoldenStandard\\GoldenStandard\\GoldenStandard.csproj",
+      "projectUniqueName": "C:\\Users\\laste\\Desktop\\goldenstandard\\GoldenStandard\\GoldenStandard\\GoldenStandard.csproj",
       "projectName": "GoldenStandard",
-      "projectPath": "C:\\Users\\laste\\Desktop\\v2 — копия\\GoldenStandard\\GoldenStandard\\GoldenStandard.csproj",
+      "projectPath": "C:\\Users\\laste\\Desktop\\goldenstandard\\GoldenStandard\\GoldenStandard\\GoldenStandard.csproj",
       "packagesPath": "C:\\Users\\laste\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\laste\\Desktop\\v2 — копия\\GoldenStandard\\GoldenStandard\\obj\\",
+      "outputPath": "C:\\Users\\laste\\Desktop\\goldenstandard\\GoldenStandard\\GoldenStandard\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
