@@ -9,16 +9,17 @@ namespace GoldenStandard.Converters
     {
         public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
-            if (value is double percentage)
+            if (value != null && double.TryParse(value.ToString(), out double percentage))
             {
                 if (percentage < 45)
-                    return Brushes.Red;
+                    return Brushes.Red;    
                 if (percentage <= 75)
-                    return Brushes.Gold;
+                    return Brushes.Gold;    
 
-                return Brushes.Green;
+                return Brushes.Green;    
             }
-            return Brushes.Gray;
+
+            return Brushes.Gray; 
         }
 
         public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)

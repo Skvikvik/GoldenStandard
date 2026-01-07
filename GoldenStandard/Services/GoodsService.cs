@@ -9,16 +9,31 @@ namespace GoldenStandard.Services;
 
 public class GoodsService
 {
-    public async Task<List<Product>> GetProductsAsync(int offset = 0, int limit = 20)
+    // ИСПРАВЛЕНО: Добавлен параметр search. 
+    // Если поиск не передан, он будет пустой строкой по умолчанию.
+    public async Task<List<Product>> GetProductsAsync(int offset = 0, string search = "", int limit = 20)
     {
         using var client = new HttpClient();
         ApiService.Authenticate(client);
+
+        // Формируем URL с учетом поиска. Uri.EscapeDataString нужен для корректной передачи пробелов/кириллицы.
         var url = $"{ApiService.BaseUrl}/api/goods/?offset={offset}&limit={limit}";
+
+        if (!string.IsNullOrWhiteSpace(search))
+        {
+            url += $"&search={Uri.EscapeDataString(search)}";
+        }
+
         try
         {
-            return await client.GetFromJsonAsync<List<Product>>(url) ?? new();
+            // Возвращаем пустой список вместо null в случае неудачи (?? new())
+            return await client.GetFromJsonAsync<List<Product>>(url) ?? new List<Product>();
         }
-        catch { return new(); }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine($"Ошибка при получении списка: {ex.Message}");
+            return new List<Product>();
+        }
     }
 
     public async Task<Product?> GetProductDetailsAsync(int id)

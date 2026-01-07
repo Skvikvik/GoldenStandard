@@ -30,28 +30,43 @@
 				<TextBox Text="{Binding Username}" IsReadOnly="True" Background="#F0F0F0"/>
 
 				<Label Content="Публичное имя:" FontSize="12" Foreground="Gray"/>
-				<TextBox Text="{Binding DisplayName}" Watermark="Введите имя"/>
+				<TextBox Text="{Binding DisplayName, Mode=TwoWay}" Watermark="Введите имя"/>
 
 				<Label Content="Email:" FontSize="12" Foreground="Gray"/>
-				<TextBox Text="{Binding Email}" Watermark="example@mail.com"/>
+				<TextBox Text="{Binding Email, Mode=TwoWay}" Watermark="example@mail.com"/>
 
 				<Label Content="О себе:" FontSize="12" Foreground="Gray"/>
-				<TextBox Text="{Binding Description}" Height="100" AcceptsReturn="True" TextWrapping="Wrap"/>
+				<TextBox Text="{Binding Description, Mode=TwoWay}"
+                         Height="100"
+                         AcceptsReturn="True"
+                         TextWrapping="Wrap"/>
 
-				<TextBlock Text="{Binding StatusMessage}" Foreground="Green" HorizontalAlignment="Center"/>
+				<TextBlock Text="{Binding StatusMessage}"
+                           Foreground="Green"
+                           HorizontalAlignment="Center"
+                           FontSize="12"
+                           FontWeight="Medium"/>
 
 				<Button Content="СОХРАНИТЬ ИЗМЕНЕНИЯ"
                         Command="{Binding SaveCommand}"
                         Background="#FFD700"
+                        Foreground="#3A3A3A"
+                        FontWeight="Bold"
                         HorizontalAlignment="Stretch"
                         HorizontalContentAlignment="Center"
-                        Height="45"/>
+                        Height="45"
+                        CornerRadius="5"/>
 
 				<Button Content="ВЫЙТИ ИЗ АККАУНТА"
                         Command="{Binding LogoutCommand}"
-                        Background="Transparent" Foreground="Red" BorderBrush="Red" BorderThickness="1"
-                        HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
-                        Margin="0,20,0,0"/>
+                        Background="Transparent"
+                        Foreground="Red"
+                        BorderBrush="Red"
+                        BorderThickness="1"
+                        HorizontalAlignment="Stretch"
+                        HorizontalContentAlignment="Center"
+                        Margin="0,20,0,0"
+                        CornerRadius="5"/>
 			</StackPanel>
 		</ScrollViewer>
 	</Grid>

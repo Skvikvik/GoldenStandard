@@ -17,7 +17,6 @@
   <ItemGroup>
     <ProjectReference Include="..\GoldenStandard\GoldenStandard.csproj" />
     <ProjectReference Include="..\LoginViewModelTests.cs\LoginViewModelTests.csproj" />
-    <ProjectReference Include="..\RegistrationViewModelTest\RegistrationViewModelTest.csproj" />
   </ItemGroup>
 
   <ItemGroup>

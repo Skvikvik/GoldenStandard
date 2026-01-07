@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive;
+using System.Reactive.Linq;
 using System.Threading.Tasks;
 using ReactiveUI;
 using GoldenStandard.Models;
@@ -54,12 +55,14 @@ public class ProductListViewModel : ReactiveObject
 
     public ReactiveCommand<Product, Unit> SelectProductCommand { get; }
     public ReactiveCommand<Unit, Unit> LoadMoreCommand { get; }
+    public ReactiveCommand<Unit, Unit> RefreshCommand { get; }
     public ReactiveCommand<Unit, Unit> GoToAddProduct { get; }
 
     public ProductListViewModel(MainViewModel parent)
     {
         _parent = parent;
 
+        // Команда выбора продукта
         SelectProductCommand = ReactiveCommand.CreateFromTask<Product>(async (p) => {
             if (p == null || IsBusy) return;
             IsBusy = true;
@@ -71,13 +74,16 @@ public class ProductListViewModel : ReactiveObject
             finally { IsBusy = false; }
         });
 
+        // Команда ПОДГРУЗКИ (использует текущий SearchText)
         LoadMoreCommand = ReactiveCommand.CreateFromTask(async () => {
             if (IsBusy) return;
             IsBusy = true;
             try
             {
-                var items = await _goodsService.GetProductsAsync(_offset);
-                if (items != null)
+                // Передаем SearchText вторым аргументом, как мы исправили в GoodsService
+                var items = await _goodsService.GetProductsAsync(_offset, SearchText);
+
+                if (items != null && items.Count > 0)
                 {
                     foreach (var i in items) Products.Add(i);
                     _offset += items.Count;
@@ -87,29 +93,50 @@ public class ProductListViewModel : ReactiveObject
             finally { IsBusy = false; }
         });
 
+        // Команда ОБНОВЛЕНИЯ (сброс и загрузка с нуля)
+        RefreshCommand = ReactiveCommand.CreateFromTask(async () => {
+            _offset = 0;
+            Products.Clear();
+            await LoadMoreCommand.Execute();
+        });
+
         GoToAddProduct = ReactiveCommand.Create(() => {
             _parent.ShowAddProduct();
         });
 
-        _ = LoadMoreCommand.Execute();
+        // ЛОГИКА ЖИВОГО ПОИСКА
+        this.WhenAnyValue(x => x.SearchText)
+            .Throttle(TimeSpan.FromMilliseconds(500)) // Ждем полсекунды после ввода
+            .DistinctUntilChanged()
+            .ObserveOn(RxApp.MainThreadScheduler)
+            .Subscribe(async _ =>
+            {
+                await RefreshCommand.Execute();
+            });
+
+        // Начальная загрузка при создании ViewModel
+        _ = RefreshCommand.Execute();
     }
 
     private void ApplySorting()
     {
         if (Products == null || Products.Count <= 1) return;
 
-        IEnumerable<Product> sortedQuery = SelectedSortMode switch
+        var sorted = SelectedSortMode switch
         {
-            "Сначала дешевые" => Products.OrderBy(p => p.Price),
-            "Сначала дорогие" => Products.OrderByDescending(p => p.Price),
-            "По качеству (состав)" => Products.OrderByDescending(p => p.QualityPercentage),
-            "По рейтингу (звезды)" => Products.OrderByDescending(p => p.Rating),
-            "По количеству отзывов" => Products.OrderByDescending(p => p.ReviewsCount),
+            "Сначала дешевые" => Products.OrderBy(p => p.Price).ToList(),
+            "Сначала дорогие" => Products.OrderByDescending(p => p.Price).ToList(),
+            "По качеству (состав)" => Products.OrderByDescending(p => p.QualityPercentage).ToList(),
+            "По рейтингу (звезды)" => Products.OrderByDescending(p => p.Rating).ToList(),
+            "По количеству отзывов" => Products.OrderByDescending(p => p.ReviewsCount).ToList(),
             _ => Products.ToList()
         };
 
-        var sortedList = sortedQuery.ToList();
-        Products.Clear();
-        foreach (var p in sortedList) Products.Add(p);
+        // Обновляем коллекцию только если порядок изменился
+        if (!Products.SequenceEqual(sorted))
+        {
+            Products.Clear();
+            foreach (var p in sorted) Products.Add(p);
+        }
     }
 }
