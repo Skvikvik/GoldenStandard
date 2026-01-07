@@ -20,6 +20,9 @@ public class ProductListViewModel : ReactiveObject
     private string _searchText = "";
     private string _selectedSortMode = "Сначала дешевые";
 
+    // Адрес вашего сервера (подставьте свой)
+    private const string BaseUrl = "http://127.0.0.1:8000";
+
     public ObservableCollection<Product> Products { get; } = new();
 
     public bool IsBusy
@@ -62,7 +65,6 @@ public class ProductListViewModel : ReactiveObject
     {
         _parent = parent;
 
-        // Команда выбора продукта
         SelectProductCommand = ReactiveCommand.CreateFromTask<Product>(async (p) => {
             if (p == null || IsBusy) return;
             IsBusy = true;
@@ -74,18 +76,23 @@ public class ProductListViewModel : ReactiveObject
             finally { IsBusy = false; }
         });
 
-        // Команда ПОДГРУЗКИ (использует текущий SearchText)
         LoadMoreCommand = ReactiveCommand.CreateFromTask(async () => {
             if (IsBusy) return;
             IsBusy = true;
             try
             {
-                // Передаем SearchText вторым аргументом, как мы исправили в GoodsService
                 var items = await _goodsService.GetProductsAsync(_offset, SearchText);
 
                 if (items != null && items.Count > 0)
                 {
-                    foreach (var i in items) Products.Add(i);
+                    foreach (var i in items)
+                    {
+                        Products.Add(i);
+                        // ЗАПУСК ФОНОВОЙ ЗАГРУЗКИ КАРТИНКИ
+                        // Мы не пишем await, чтобы картинки грузились параллельно 
+                        // и не блокировали отрисовку списка
+                        _ = i.LoadImageAsync(BaseUrl);
+                    }
                     _offset += items.Count;
                     ApplySorting();
                 }
@@ -93,7 +100,6 @@ public class ProductListViewModel : ReactiveObject
             finally { IsBusy = false; }
         });
 
-        // Команда ОБНОВЛЕНИЯ (сброс и загрузка с нуля)
         RefreshCommand = ReactiveCommand.CreateFromTask(async () => {
             _offset = 0;
             Products.Clear();
@@ -104,9 +110,8 @@ public class ProductListViewModel : ReactiveObject
             _parent.ShowAddProduct();
         });
 
-        // ЛОГИКА ЖИВОГО ПОИСКА
         this.WhenAnyValue(x => x.SearchText)
-            .Throttle(TimeSpan.FromMilliseconds(500)) // Ждем полсекунды после ввода
+            .Throttle(TimeSpan.FromMilliseconds(500))
             .DistinctUntilChanged()
             .ObserveOn(RxApp.MainThreadScheduler)
             .Subscribe(async _ =>
@@ -114,7 +119,6 @@ public class ProductListViewModel : ReactiveObject
                 await RefreshCommand.Execute();
             });
 
-        // Начальная загрузка при создании ViewModel
         _ = RefreshCommand.Execute();
     }
 
@@ -132,11 +136,15 @@ public class ProductListViewModel : ReactiveObject
             _ => Products.ToList()
         };
 
-        // Обновляем коллекцию только если порядок изменился
         if (!Products.SequenceEqual(sorted))
         {
-            Products.Clear();
-            foreach (var p in sorted) Products.Add(p);
+            // Используем Move для сохранения объектов, чтобы не перезагружать картинки заново
+            for (int i = 0; i < sorted.Count; i++)
+            {
+                var oldIndex = Products.IndexOf(sorted[i]);
+                if (oldIndex != i && oldIndex != -1)
+                    Products.Move(oldIndex, i);
+            }
         }
     }
 }

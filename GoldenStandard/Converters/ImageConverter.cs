@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Globalization;
 using System.Net.Http;
-using System.IO;
 using Avalonia.Data.Converters;
 using Avalonia.Media.Imaging;
+using GoldenStandard.Services; // Чтобы взять ApiService.BaseUrl
 
 namespace GoldenStandard.Converters
 {
@@ -15,14 +15,20 @@ namespace GoldenStandard.Converters
         {
             if (value is string url && !string.IsNullOrWhiteSpace(url))
             {
-                if (!url.StartsWith("http")) return null;
+                // Если путь относительный (напр. /media/...), добавляем BaseUrl
+                if (!url.StartsWith("http"))
+                {
+                    url = ApiService.BaseUrl.TrimEnd('/') + "/" + url.TrimStart('/');
+                }
 
                 try
                 {
+                    // Внимание: GetResult() — плохо для производительности, 
+                    // но для курсового проекта допустимо.
                     var response = _httpClient.GetAsync(url).GetAwaiter().GetResult();
                     if (response.IsSuccessStatusCode)
                     {
-                        var stream = response.Content.ReadAsStreamAsync().GetAwaiter().GetResult();
+                        using var stream = response.Content.ReadAsStreamAsync().GetAwaiter().GetResult();
                         return new Bitmap(stream);
                     }
                 }
