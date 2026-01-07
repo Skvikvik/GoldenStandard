@@ -1,0 +1,240 @@
+E:\some shit\repos\GoldenStandard\GoldenStandard\obj\Debug\net9.0\GoldenStandard.csproj.AssemblyReference.cache
+E:\some shit\repos\GoldenStandard\GoldenStandard\obj\Debug\net9.0\Avalonia\Resources.Inputs.cache
+E:\some shit\repos\GoldenStandard\GoldenStandard\obj\Debug\net9.0\Avalonia\resources
+E:\some shit\repos\GoldenStandard\GoldenStandard\obj\Debug\net9.0\GoldenStandard.GeneratedMSBuildEditorConfig.editorconfig
+E:\some shit\repos\GoldenStandard\GoldenStandard\obj\Debug\net9.0\GoldenStandard.AssemblyInfoInputs.cache
+E:\some shit\repos\GoldenStandard\GoldenStandard\obj\Debug\net9.0\GoldenStandard.AssemblyInfo.cs
+E:\some shit\repos\GoldenStandard\GoldenStandard\obj\Debug\net9.0\GoldenStandard.csproj.CoreCompileInputs.cache
+E:\some shit\repos\GoldenStandard\GoldenStandard\obj\Debug\net9.0\GoldenStandard.dll
+E:\some shit\repos\GoldenStandard\GoldenStandard\obj\Debug\net9.0\refint\GoldenStandard.dll
+E:\some shit\repos\GoldenStandard\GoldenStandard\obj\Debug\net9.0\GoldenStandard.pdb
+E:\some shit\repos\GoldenStandard\GoldenStandard\bin\Debug\net9.0\GoldenStandard.exe
+E:\some shit\repos\GoldenStandard\GoldenStandard\bin\Debug\net9.0\GoldenStandard.deps.json
+E:\some shit\repos\GoldenStandard\GoldenStandard\bin\Debug\net9.0\GoldenStandard.runtimeconfig.json
+E:\some shit\repos\GoldenStandard\GoldenStandard\bin\Debug\net9.0\GoldenStandard.dll
+E:\some shit\repos\GoldenStandard\GoldenStandard\bin\Debug\net9.0\GoldenStandard.pdb
+E:\some shit\repos\GoldenStandard\GoldenStandard\bin\Debug\net9.0\Avalonia.Base.dll
+E:\some shit\repos\GoldenStandard\GoldenStandard\bin\Debug\net9.0\Avalonia.Controls.dll
+E:\some shit\repos\GoldenStandard\GoldenStandard\bin\Debug\net9.0\Avalonia.DesignerSupport.dll
+E:\some shit\repos\GoldenStandard\GoldenStandard\bin\Debug\net9.0\Avalonia.Dialogs.dll
+E:\some shit\repos\GoldenStandard\GoldenStandard\bin\Debug\net9.0\Avalonia.Markup.Xaml.dll
+E:\some shit\repos\GoldenStandard\GoldenStandard\bin\Debug\net9.0\Avalonia.Markup.dll
+E:\some shit\repos\GoldenStandard\GoldenStandard\bin\Debug\net9.0\Avalonia.Metal.dll
+E:\some shit\repos\GoldenStandard\GoldenStandard\bin\Debug\net9.0\Avalonia.MicroCom.dll
+E:\some shit\repos\GoldenStandard\GoldenStandard\bin\Debug\net9.0\Avalonia.OpenGL.dll
+E:\some shit\repos\GoldenStandard\GoldenStandard\bin\Debug\net9.0\Avalonia.Vulkan.dll
+E:\some shit\repos\GoldenStandard\GoldenStandard\bin\Debug\net9.0\Avalonia.dll
+E:\some shit\repos\GoldenStandard\GoldenStandard\bin\Debug\net9.0\Avalonia.Controls.ColorPicker.dll
+E:\some shit\repos\GoldenStandard\GoldenStandard\bin\Debug\net9.0\Avalonia.Desktop.dll
+E:\some shit\repos\GoldenStandard\GoldenStandard\bin\Debug\net9.0\Avalonia.Diagnostics.dll
+E:\some shit\repos\GoldenStandard\GoldenStandard\bin\Debug\net9.0\Avalonia.Fonts.Inter.dll
+E:\some shit\repos\GoldenStandard\GoldenStandard\bin\Debug\net9.0\Avalonia.FreeDesktop.dll
+E:\some shit\repos\GoldenStandard\GoldenStandard\bin\Debug\net9.0\Avalonia.Native.dll
+E:\some shit\repos\GoldenStandard\GoldenStandard\bin\Debug\net9.0\Avalonia.ReactiveUI.dll
+E:\some shit\repos\GoldenStandard\GoldenStandard\bin\Debug\net9.0\Avalonia.Remote.Protocol.dll
+E:\some shit\repos\GoldenStandard\GoldenStandard\bin\Debug\net9.0\Avalonia.Skia.dll
+E:\some shit\repos\GoldenStandard\GoldenStandard\bin\Debug\net9.0\Avalonia.Themes.Fluent.dll
+E:\some shit\repos\GoldenStandard\GoldenStandard\bin\Debug\net9.0\Avalonia.Themes.Simple.dll
+E:\some shit\repos\GoldenStandard\GoldenStandard\bin\Debug\net9.0\Avalonia.Win32.Automation.dll
+E:\some shit\repos\GoldenStandard\GoldenStandard\bin\Debug\net9.0\Avalonia.Win32.dll
+E:\some shit\repos\GoldenStandard\GoldenStandard\bin\Debug\net9.0\Avalonia.X11.dll
+E:\some shit\repos\GoldenStandard\GoldenStandard\bin\Debug\net9.0\CommunityToolkit.Mvvm.dll
+E:\some shit\repos\GoldenStandard\GoldenStandard\bin\Debug\net9.0\DynamicData.dll
+E:\some shit\repos\GoldenStandard\GoldenStandard\bin\Debug\net9.0\HarfBuzzSharp.dll
+E:\some shit\repos\GoldenStandard\GoldenStandard\bin\Debug\net9.0\MicroCom.Runtime.dll
+E:\some shit\repos\GoldenStandard\GoldenStandard\bin\Debug\net9.0\ReactiveUI.dll
+E:\some shit\repos\GoldenStandard\GoldenStandard\bin\Debug\net9.0\SkiaSharp.dll
+E:\some shit\repos\GoldenStandard\GoldenStandard\bin\Debug\net9.0\Splat.dll
+E:\some shit\repos\GoldenStandard\GoldenStandard\bin\Debug\net9.0\System.Reactive.dll
+E:\some shit\repos\GoldenStandard\GoldenStandard\bin\Debug\net9.0\Tmds.DBus.Protocol.dll
+E:\some shit\repos\GoldenStandard\GoldenStandard\bin\Debug\net9.0\runtimes\win-arm64\native\av_libglesv2.dll
+E:\some shit\repos\GoldenStandard\GoldenStandard\bin\Debug\net9.0\runtimes\win-x64\native\av_libglesv2.dll
+E:\some shit\repos\GoldenStandard\GoldenStandard\bin\Debug\net9.0\runtimes\win-x86\native\av_libglesv2.dll
+E:\some shit\repos\GoldenStandard\GoldenStandard\bin\Debug\net9.0\runtimes\osx\native\libAvaloniaNative.dylib
+E:\some shit\repos\GoldenStandard\GoldenStandard\bin\Debug\net9.0\runtimes\linux-arm\native\libHarfBuzzSharp.so
+E:\some shit\repos\GoldenStandard\GoldenStandard\bin\Debug\net9.0\runtimes\linux-arm64\native\libHarfBuzzSharp.so
+E:\some shit\repos\GoldenStandard\GoldenStandard\bin\Debug\net9.0\runtimes\linux-loongarch64\native\libHarfBuzzSharp.so
+E:\some shit\repos\GoldenStandard\GoldenStandard\bin\Debug\net9.0\runtimes\linux-musl-arm\native\libHarfBuzzSharp.so
+E:\some shit\repos\GoldenStandard\GoldenStandard\bin\Debug\net9.0\runtimes\linux-musl-arm64\native\libHarfBuzzSharp.so
+E:\some shit\repos\GoldenStandard\GoldenStandard\bin\Debug\net9.0\runtimes\linux-musl-loongarch64\native\libHarfBuzzSharp.so
+E:\some shit\repos\GoldenStandard\GoldenStandard\bin\Debug\net9.0\runtimes\linux-musl-riscv64\native\libHarfBuzzSharp.so
+E:\some shit\repos\GoldenStandard\GoldenStandard\bin\Debug\net9.0\runtimes\linux-musl-x64\native\libHarfBuzzSharp.so
+E:\some shit\repos\GoldenStandard\GoldenStandard\bin\Debug\net9.0\runtimes\linux-riscv64\native\libHarfBuzzSharp.so
+E:\some shit\repos\GoldenStandard\GoldenStandard\bin\Debug\net9.0\runtimes\linux-x64\native\libHarfBuzzSharp.so
+E:\some shit\repos\GoldenStandard\GoldenStandard\bin\Debug\net9.0\runtimes\linux-x86\native\libHarfBuzzSharp.so
+E:\some shit\repos\GoldenStandard\GoldenStandard\bin\Debug\net9.0\runtimes\osx\native\libHarfBuzzSharp.dylib
+E:\some shit\repos\GoldenStandard\GoldenStandard\bin\Debug\net9.0\runtimes\win-arm64\native\libHarfBuzzSharp.dll
+E:\some shit\repos\GoldenStandard\GoldenStandard\bin\Debug\net9.0\runtimes\win-x64\native\libHarfBuzzSharp.dll
+E:\some shit\repos\GoldenStandard\GoldenStandard\bin\Debug\net9.0\runtimes\win-x86\native\libHarfBuzzSharp.dll
+E:\some shit\repos\GoldenStandard\GoldenStandard\bin\Debug\net9.0\runtimes\linux-arm\native\libSkiaSharp.so
+E:\some shit\repos\GoldenStandard\GoldenStandard\bin\Debug\net9.0\runtimes\linux-arm64\native\libSkiaSharp.so
+E:\some shit\repos\GoldenStandard\GoldenStandard\bin\Debug\net9.0\runtimes\linux-musl-x64\native\libSkiaSharp.so
+E:\some shit\repos\GoldenStandard\GoldenStandard\bin\Debug\net9.0\runtimes\linux-x64\native\libSkiaSharp.so
+E:\some shit\repos\GoldenStandard\GoldenStandard\bin\Debug\net9.0\runtimes\osx\native\libSkiaSharp.dylib
+E:\some shit\repos\GoldenStandard\GoldenStandard\bin\Debug\net9.0\runtimes\win-arm64\native\libSkiaSharp.dll
+E:\some shit\repos\GoldenStandard\GoldenStandard\bin\Debug\net9.0\runtimes\win-x64\native\libSkiaSharp.dll
+E:\some shit\repos\GoldenStandard\GoldenStandard\bin\Debug\net9.0\runtimes\win-x86\native\libSkiaSharp.dll
+E:\some shit\repos\GoldenStandard\GoldenStandard\obj\Debug\net9.0\GoldenSt.F3B83403.Up2Date
+E:\some shit\repos\GoldenStandard\GoldenStandard\obj\Debug\net9.0\GoldenStandard.genruntimeconfig.cache
+E:\some shit\repos\GoldenStandard\GoldenStandard\obj\Debug\net9.0\ref\GoldenStandard.dll
+C:\Users\laste\Desktop\v2\GoldenStandard\GoldenStandard\bin\Debug\net9.0\GoldenStandard.exe
+C:\Users\laste\Desktop\v2\GoldenStandard\GoldenStandard\bin\Debug\net9.0\GoldenStandard.deps.json
+C:\Users\laste\Desktop\v2\GoldenStandard\GoldenStandard\bin\Debug\net9.0\GoldenStandard.runtimeconfig.json
+C:\Users\laste\Desktop\v2\GoldenStandard\GoldenStandard\bin\Debug\net9.0\GoldenStandard.dll
+C:\Users\laste\Desktop\v2\GoldenStandard\GoldenStandard\bin\Debug\net9.0\GoldenStandard.pdb
+C:\Users\laste\Desktop\v2\GoldenStandard\GoldenStandard\bin\Debug\net9.0\Avalonia.Base.dll
+C:\Users\laste\Desktop\v2\GoldenStandard\GoldenStandard\bin\Debug\net9.0\Avalonia.Controls.dll
+C:\Users\laste\Desktop\v2\GoldenStandard\GoldenStandard\bin\Debug\net9.0\Avalonia.DesignerSupport.dll
+C:\Users\laste\Desktop\v2\GoldenStandard\GoldenStandard\bin\Debug\net9.0\Avalonia.Dialogs.dll
+C:\Users\laste\Desktop\v2\GoldenStandard\GoldenStandard\bin\Debug\net9.0\Avalonia.Markup.Xaml.dll
+C:\Users\laste\Desktop\v2\GoldenStandard\GoldenStandard\bin\Debug\net9.0\Avalonia.Markup.dll
+C:\Users\laste\Desktop\v2\GoldenStandard\GoldenStandard\bin\Debug\net9.0\Avalonia.Metal.dll
+C:\Users\laste\Desktop\v2\GoldenStandard\GoldenStandard\bin\Debug\net9.0\Avalonia.MicroCom.dll
+C:\Users\laste\Desktop\v2\GoldenStandard\GoldenStandard\bin\Debug\net9.0\Avalonia.OpenGL.dll
+C:\Users\laste\Desktop\v2\GoldenStandard\GoldenStandard\bin\Debug\net9.0\Avalonia.Vulkan.dll
+C:\Users\laste\Desktop\v2\GoldenStandard\GoldenStandard\bin\Debug\net9.0\Avalonia.dll
+C:\Users\laste\Desktop\v2\GoldenStandard\GoldenStandard\bin\Debug\net9.0\Avalonia.Controls.ColorPicker.dll
+C:\Users\laste\Desktop\v2\GoldenStandard\GoldenStandard\bin\Debug\net9.0\Avalonia.Desktop.dll
+C:\Users\laste\Desktop\v2\GoldenStandard\GoldenStandard\bin\Debug\net9.0\Avalonia.Diagnostics.dll
+C:\Users\laste\Desktop\v2\GoldenStandard\GoldenStandard\bin\Debug\net9.0\Avalonia.Fonts.Inter.dll
+C:\Users\laste\Desktop\v2\GoldenStandard\GoldenStandard\bin\Debug\net9.0\Avalonia.FreeDesktop.dll
+C:\Users\laste\Desktop\v2\GoldenStandard\GoldenStandard\bin\Debug\net9.0\Avalonia.Native.dll
+C:\Users\laste\Desktop\v2\GoldenStandard\GoldenStandard\bin\Debug\net9.0\Avalonia.ReactiveUI.dll
+C:\Users\laste\Desktop\v2\GoldenStandard\GoldenStandard\bin\Debug\net9.0\Avalonia.Remote.Protocol.dll
+C:\Users\laste\Desktop\v2\GoldenStandard\GoldenStandard\bin\Debug\net9.0\Avalonia.Skia.dll
+C:\Users\laste\Desktop\v2\GoldenStandard\GoldenStandard\bin\Debug\net9.0\Avalonia.Themes.Fluent.dll
+C:\Users\laste\Desktop\v2\GoldenStandard\GoldenStandard\bin\Debug\net9.0\Avalonia.Themes.Simple.dll
+C:\Users\laste\Desktop\v2\GoldenStandard\GoldenStandard\bin\Debug\net9.0\Avalonia.Win32.Automation.dll
+C:\Users\laste\Desktop\v2\GoldenStandard\GoldenStandard\bin\Debug\net9.0\Avalonia.Win32.dll
+C:\Users\laste\Desktop\v2\GoldenStandard\GoldenStandard\bin\Debug\net9.0\Avalonia.X11.dll
+C:\Users\laste\Desktop\v2\GoldenStandard\GoldenStandard\bin\Debug\net9.0\CommunityToolkit.Mvvm.dll
+C:\Users\laste\Desktop\v2\GoldenStandard\GoldenStandard\bin\Debug\net9.0\DynamicData.dll
+C:\Users\laste\Desktop\v2\GoldenStandard\GoldenStandard\bin\Debug\net9.0\HarfBuzzSharp.dll
+C:\Users\laste\Desktop\v2\GoldenStandard\GoldenStandard\bin\Debug\net9.0\MicroCom.Runtime.dll
+C:\Users\laste\Desktop\v2\GoldenStandard\GoldenStandard\bin\Debug\net9.0\ReactiveUI.dll
+C:\Users\laste\Desktop\v2\GoldenStandard\GoldenStandard\bin\Debug\net9.0\SkiaSharp.dll
+C:\Users\laste\Desktop\v2\GoldenStandard\GoldenStandard\bin\Debug\net9.0\Splat.dll
+C:\Users\laste\Desktop\v2\GoldenStandard\GoldenStandard\bin\Debug\net9.0\System.Reactive.dll
+C:\Users\laste\Desktop\v2\GoldenStandard\GoldenStandard\bin\Debug\net9.0\Tmds.DBus.Protocol.dll
+C:\Users\laste\Desktop\v2\GoldenStandard\GoldenStandard\bin\Debug\net9.0\runtimes\win-arm64\native\av_libglesv2.dll
+C:\Users\laste\Desktop\v2\GoldenStandard\GoldenStandard\bin\Debug\net9.0\runtimes\win-x64\native\av_libglesv2.dll
+C:\Users\laste\Desktop\v2\GoldenStandard\GoldenStandard\bin\Debug\net9.0\runtimes\win-x86\native\av_libglesv2.dll
+C:\Users\laste\Desktop\v2\GoldenStandard\GoldenStandard\bin\Debug\net9.0\runtimes\osx\native\libAvaloniaNative.dylib
+C:\Users\laste\Desktop\v2\GoldenStandard\GoldenStandard\bin\Debug\net9.0\runtimes\linux-arm\native\libHarfBuzzSharp.so
+C:\Users\laste\Desktop\v2\GoldenStandard\GoldenStandard\bin\Debug\net9.0\runtimes\linux-arm64\native\libHarfBuzzSharp.so
+C:\Users\laste\Desktop\v2\GoldenStandard\GoldenStandard\bin\Debug\net9.0\runtimes\linux-loongarch64\native\libHarfBuzzSharp.so
+C:\Users\laste\Desktop\v2\GoldenStandard\GoldenStandard\bin\Debug\net9.0\runtimes\linux-musl-arm\native\libHarfBuzzSharp.so
+C:\Users\laste\Desktop\v2\GoldenStandard\GoldenStandard\bin\Debug\net9.0\runtimes\linux-musl-arm64\native\libHarfBuzzSharp.so
+C:\Users\laste\Desktop\v2\GoldenStandard\GoldenStandard\bin\Debug\net9.0\runtimes\linux-musl-loongarch64\native\libHarfBuzzSharp.so
+C:\Users\laste\Desktop\v2\GoldenStandard\GoldenStandard\bin\Debug\net9.0\runtimes\linux-musl-riscv64\native\libHarfBuzzSharp.so
+C:\Users\laste\Desktop\v2\GoldenStandard\GoldenStandard\bin\Debug\net9.0\runtimes\linux-musl-x64\native\libHarfBuzzSharp.so
+C:\Users\laste\Desktop\v2\GoldenStandard\GoldenStandard\bin\Debug\net9.0\runtimes\linux-riscv64\native\libHarfBuzzSharp.so
+C:\Users\laste\Desktop\v2\GoldenStandard\GoldenStandard\bin\Debug\net9.0\runtimes\linux-x64\native\libHarfBuzzSharp.so
+C:\Users\laste\Desktop\v2\GoldenStandard\GoldenStandard\bin\Debug\net9.0\runtimes\linux-x86\native\libHarfBuzzSharp.so
+C:\Users\laste\Desktop\v2\GoldenStandard\GoldenStandard\bin\Debug\net9.0\runtimes\osx\native\libHarfBuzzSharp.dylib
+C:\Users\laste\Desktop\v2\GoldenStandard\GoldenStandard\bin\Debug\net9.0\runtimes\win-arm64\native\libHarfBuzzSharp.dll
+C:\Users\laste\Desktop\v2\GoldenStandard\GoldenStandard\bin\Debug\net9.0\runtimes\win-x64\native\libHarfBuzzSharp.dll
+C:\Users\laste\Desktop\v2\GoldenStandard\GoldenStandard\bin\Debug\net9.0\runtimes\win-x86\native\libHarfBuzzSharp.dll
+C:\Users\laste\Desktop\v2\GoldenStandard\GoldenStandard\bin\Debug\net9.0\runtimes\linux-arm\native\libSkiaSharp.so
+C:\Users\laste\Desktop\v2\GoldenStandard\GoldenStandard\bin\Debug\net9.0\runtimes\linux-arm64\native\libSkiaSharp.so
+C:\Users\laste\Desktop\v2\GoldenStandard\GoldenStandard\bin\Debug\net9.0\runtimes\linux-musl-x64\native\libSkiaSharp.so
+C:\Users\laste\Desktop\v2\GoldenStandard\GoldenStandard\bin\Debug\net9.0\runtimes\linux-x64\native\libSkiaSharp.so
+C:\Users\laste\Desktop\v2\GoldenStandard\GoldenStandard\bin\Debug\net9.0\runtimes\osx\native\libSkiaSharp.dylib
+C:\Users\laste\Desktop\v2\GoldenStandard\GoldenStandard\bin\Debug\net9.0\runtimes\win-arm64\native\libSkiaSharp.dll
+C:\Users\laste\Desktop\v2\GoldenStandard\GoldenStandard\bin\Debug\net9.0\runtimes\win-x64\native\libSkiaSharp.dll
+C:\Users\laste\Desktop\v2\GoldenStandard\GoldenStandard\bin\Debug\net9.0\runtimes\win-x86\native\libSkiaSharp.dll
+C:\Users\laste\Desktop\v2\GoldenStandard\GoldenStandard\obj\Debug\net9.0\GoldenStandard.csproj.AssemblyReference.cache
+C:\Users\laste\Desktop\v2\GoldenStandard\GoldenStandard\obj\Debug\net9.0\Avalonia\Resources.Inputs.cache
+C:\Users\laste\Desktop\v2\GoldenStandard\GoldenStandard\obj\Debug\net9.0\Avalonia\resources
+C:\Users\laste\Desktop\v2\GoldenStandard\GoldenStandard\obj\Debug\net9.0\GoldenStandard.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\laste\Desktop\v2\GoldenStandard\GoldenStandard\obj\Debug\net9.0\GoldenStandard.AssemblyInfoInputs.cache
+C:\Users\laste\Desktop\v2\GoldenStandard\GoldenStandard\obj\Debug\net9.0\GoldenStandard.AssemblyInfo.cs
+C:\Users\laste\Desktop\v2\GoldenStandard\GoldenStandard\obj\Debug\net9.0\GoldenStandard.csproj.CoreCompileInputs.cache
+C:\Users\laste\Desktop\v2\GoldenStandard\GoldenStandard\obj\Debug\net9.0\GoldenStandard.sourcelink.json
+C:\Users\laste\Desktop\v2\GoldenStandard\GoldenStandard\obj\Debug\net9.0\GoldenSt.F3B83403.Up2Date
+C:\Users\laste\Desktop\v2\GoldenStandard\GoldenStandard\obj\Debug\net9.0\GoldenStandard.dll
+C:\Users\laste\Desktop\v2\GoldenStandard\GoldenStandard\obj\Debug\net9.0\refint\GoldenStandard.dll
+C:\Users\laste\Desktop\v2\GoldenStandard\GoldenStandard\obj\Debug\net9.0\GoldenStandard.pdb
+C:\Users\laste\Desktop\v2\GoldenStandard\GoldenStandard\obj\Debug\net9.0\GoldenStandard.genruntimeconfig.cache
+C:\Users\laste\Desktop\v2\GoldenStandard\GoldenStandard\obj\Debug\net9.0\ref\GoldenStandard.dll
+C:\Users\laste\Desktop\v2 — копия\GoldenStandard\GoldenStandard\bin\Debug\net9.0\GoldenStandard.exe
+C:\Users\laste\Desktop\v2 — копия\GoldenStandard\GoldenStandard\bin\Debug\net9.0\GoldenStandard.deps.json
+C:\Users\laste\Desktop\v2 — копия\GoldenStandard\GoldenStandard\bin\Debug\net9.0\GoldenStandard.runtimeconfig.json
+C:\Users\laste\Desktop\v2 — копия\GoldenStandard\GoldenStandard\bin\Debug\net9.0\GoldenStandard.dll
+C:\Users\laste\Desktop\v2 — копия\GoldenStandard\GoldenStandard\bin\Debug\net9.0\GoldenStandard.pdb
+C:\Users\laste\Desktop\v2 — копия\GoldenStandard\GoldenStandard\bin\Debug\net9.0\Avalonia.Base.dll
+C:\Users\laste\Desktop\v2 — копия\GoldenStandard\GoldenStandard\bin\Debug\net9.0\Avalonia.Controls.dll
+C:\Users\laste\Desktop\v2 — копия\GoldenStandard\GoldenStandard\bin\Debug\net9.0\Avalonia.DesignerSupport.dll
+C:\Users\laste\Desktop\v2 — копия\GoldenStandard\GoldenStandard\bin\Debug\net9.0\Avalonia.Dialogs.dll
+C:\Users\laste\Desktop\v2 — копия\GoldenStandard\GoldenStandard\bin\Debug\net9.0\Avalonia.Markup.Xaml.dll
+C:\Users\laste\Desktop\v2 — копия\GoldenStandard\GoldenStandard\bin\Debug\net9.0\Avalonia.Markup.dll
+C:\Users\laste\Desktop\v2 — копия\GoldenStandard\GoldenStandard\bin\Debug\net9.0\Avalonia.Metal.dll
+C:\Users\laste\Desktop\v2 — копия\GoldenStandard\GoldenStandard\bin\Debug\net9.0\Avalonia.MicroCom.dll
+C:\Users\laste\Desktop\v2 — копия\GoldenStandard\GoldenStandard\bin\Debug\net9.0\Avalonia.OpenGL.dll
+C:\Users\laste\Desktop\v2 — копия\GoldenStandard\GoldenStandard\bin\Debug\net9.0\Avalonia.Vulkan.dll
+C:\Users\laste\Desktop\v2 — копия\GoldenStandard\GoldenStandard\bin\Debug\net9.0\Avalonia.dll
+C:\Users\laste\Desktop\v2 — копия\GoldenStandard\GoldenStandard\bin\Debug\net9.0\Avalonia.Controls.ColorPicker.dll
+C:\Users\laste\Desktop\v2 — копия\GoldenStandard\GoldenStandard\bin\Debug\net9.0\Avalonia.Desktop.dll
+C:\Users\laste\Desktop\v2 — копия\GoldenStandard\GoldenStandard\bin\Debug\net9.0\Avalonia.Diagnostics.dll
+C:\Users\laste\Desktop\v2 — копия\GoldenStandard\GoldenStandard\bin\Debug\net9.0\Avalonia.Fonts.Inter.dll
+C:\Users\laste\Desktop\v2 — копия\GoldenStandard\GoldenStandard\bin\Debug\net9.0\Avalonia.FreeDesktop.dll
+C:\Users\laste\Desktop\v2 — копия\GoldenStandard\GoldenStandard\bin\Debug\net9.0\Avalonia.Native.dll
+C:\Users\laste\Desktop\v2 — копия\GoldenStandard\GoldenStandard\bin\Debug\net9.0\Avalonia.ReactiveUI.dll
+C:\Users\laste\Desktop\v2 — копия\GoldenStandard\GoldenStandard\bin\Debug\net9.0\Avalonia.Remote.Protocol.dll
+C:\Users\laste\Desktop\v2 — копия\GoldenStandard\GoldenStandard\bin\Debug\net9.0\Avalonia.Skia.dll
+C:\Users\laste\Desktop\v2 — копия\GoldenStandard\GoldenStandard\bin\Debug\net9.0\Avalonia.Themes.Fluent.dll
+C:\Users\laste\Desktop\v2 — копия\GoldenStandard\GoldenStandard\bin\Debug\net9.0\Avalonia.Themes.Simple.dll
+C:\Users\laste\Desktop\v2 — копия\GoldenStandard\GoldenStandard\bin\Debug\net9.0\Avalonia.Win32.Automation.dll
+C:\Users\laste\Desktop\v2 — копия\GoldenStandard\GoldenStandard\bin\Debug\net9.0\Avalonia.Win32.dll
+C:\Users\laste\Desktop\v2 — копия\GoldenStandard\GoldenStandard\bin\Debug\net9.0\Avalonia.X11.dll
+C:\Users\laste\Desktop\v2 — копия\GoldenStandard\GoldenStandard\bin\Debug\net9.0\CommunityToolkit.Mvvm.dll
+C:\Users\laste\Desktop\v2 — копия\GoldenStandard\GoldenStandard\bin\Debug\net9.0\DynamicData.dll
+C:\Users\laste\Desktop\v2 — копия\GoldenStandard\GoldenStandard\bin\Debug\net9.0\HarfBuzzSharp.dll
+C:\Users\laste\Desktop\v2 — копия\GoldenStandard\GoldenStandard\bin\Debug\net9.0\MicroCom.Runtime.dll
+C:\Users\laste\Desktop\v2 — копия\GoldenStandard\GoldenStandard\bin\Debug\net9.0\ReactiveUI.dll
+C:\Users\laste\Desktop\v2 — копия\GoldenStandard\GoldenStandard\bin\Debug\net9.0\SkiaSharp.dll
+C:\Users\laste\Desktop\v2 — копия\GoldenStandard\GoldenStandard\bin\Debug\net9.0\Splat.dll
+C:\Users\laste\Desktop\v2 — копия\GoldenStandard\GoldenStandard\bin\Debug\net9.0\System.Reactive.dll
+C:\Users\laste\Desktop\v2 — копия\GoldenStandard\GoldenStandard\bin\Debug\net9.0\Tmds.DBus.Protocol.dll
+C:\Users\laste\Desktop\v2 — копия\GoldenStandard\GoldenStandard\bin\Debug\net9.0\runtimes\win-arm64\native\av_libglesv2.dll
+C:\Users\laste\Desktop\v2 — копия\GoldenStandard\GoldenStandard\bin\Debug\net9.0\runtimes\win-x64\native\av_libglesv2.dll
+C:\Users\laste\Desktop\v2 — копия\GoldenStandard\GoldenStandard\bin\Debug\net9.0\runtimes\win-x86\native\av_libglesv2.dll
+C:\Users\laste\Desktop\v2 — копия\GoldenStandard\GoldenStandard\bin\Debug\net9.0\runtimes\osx\native\libAvaloniaNative.dylib
+C:\Users\laste\Desktop\v2 — копия\GoldenStandard\GoldenStandard\bin\Debug\net9.0\runtimes\linux-arm\native\libHarfBuzzSharp.so
+C:\Users\laste\Desktop\v2 — копия\GoldenStandard\GoldenStandard\bin\Debug\net9.0\runtimes\linux-arm64\native\libHarfBuzzSharp.so
+C:\Users\laste\Desktop\v2 — копия\GoldenStandard\GoldenStandard\bin\Debug\net9.0\runtimes\linux-loongarch64\native\libHarfBuzzSharp.so
+C:\Users\laste\Desktop\v2 — копия\GoldenStandard\GoldenStandard\bin\Debug\net9.0\runtimes\linux-musl-arm\native\libHarfBuzzSharp.so
+C:\Users\laste\Desktop\v2 — копия\GoldenStandard\GoldenStandard\bin\Debug\net9.0\runtimes\linux-musl-arm64\native\libHarfBuzzSharp.so
+C:\Users\laste\Desktop\v2 — копия\GoldenStandard\GoldenStandard\bin\Debug\net9.0\runtimes\linux-musl-loongarch64\native\libHarfBuzzSharp.so
+C:\Users\laste\Desktop\v2 — копия\GoldenStandard\GoldenStandard\bin\Debug\net9.0\runtimes\linux-musl-riscv64\native\libHarfBuzzSharp.so
+C:\Users\laste\Desktop\v2 — копия\GoldenStandard\GoldenStandard\bin\Debug\net9.0\runtimes\linux-musl-x64\native\libHarfBuzzSharp.so
+C:\Users\laste\Desktop\v2 — копия\GoldenStandard\GoldenStandard\bin\Debug\net9.0\runtimes\linux-riscv64\native\libHarfBuzzSharp.so
+C:\Users\laste\Desktop\v2 — копия\GoldenStandard\GoldenStandard\bin\Debug\net9.0\runtimes\linux-x64\native\libHarfBuzzSharp.so
+C:\Users\laste\Desktop\v2 — копия\GoldenStandard\GoldenStandard\bin\Debug\net9.0\runtimes\linux-x86\native\libHarfBuzzSharp.so
+C:\Users\laste\Desktop\v2 — копия\GoldenStandard\GoldenStandard\bin\Debug\net9.0\runtimes\osx\native\libHarfBuzzSharp.dylib
+C:\Users\laste\Desktop\v2 — копия\GoldenStandard\GoldenStandard\bin\Debug\net9.0\runtimes\win-arm64\native\libHarfBuzzSharp.dll
+C:\Users\laste\Desktop\v2 — копия\GoldenStandard\GoldenStandard\bin\Debug\net9.0\runtimes\win-x64\native\libHarfBuzzSharp.dll
+C:\Users\laste\Desktop\v2 — копия\GoldenStandard\GoldenStandard\bin\Debug\net9.0\runtimes\win-x86\native\libHarfBuzzSharp.dll
+C:\Users\laste\Desktop\v2 — копия\GoldenStandard\GoldenStandard\bin\Debug\net9.0\runtimes\linux-arm\native\libSkiaSharp.so
+C:\Users\laste\Desktop\v2 — копия\GoldenStandard\GoldenStandard\bin\Debug\net9.0\runtimes\linux-arm64\native\libSkiaSharp.so
+C:\Users\laste\Desktop\v2 — копия\GoldenStandard\GoldenStandard\bin\Debug\net9.0\runtimes\linux-musl-x64\native\libSkiaSharp.so
+C:\Users\laste\Desktop\v2 — копия\GoldenStandard\GoldenStandard\bin\Debug\net9.0\runtimes\linux-x64\native\libSkiaSharp.so
+C:\Users\laste\Desktop\v2 — копия\GoldenStandard\GoldenStandard\bin\Debug\net9.0\runtimes\osx\native\libSkiaSharp.dylib
+C:\Users\laste\Desktop\v2 — копия\GoldenStandard\GoldenStandard\bin\Debug\net9.0\runtimes\win-arm64\native\libSkiaSharp.dll
+C:\Users\laste\Desktop\v2 — копия\GoldenStandard\GoldenStandard\bin\Debug\net9.0\runtimes\win-x64\native\libSkiaSharp.dll
+C:\Users\laste\Desktop\v2 — копия\GoldenStandard\GoldenStandard\bin\Debug\net9.0\runtimes\win-x86\native\libSkiaSharp.dll
+C:\Users\laste\Desktop\v2 — копия\GoldenStandard\GoldenStandard\obj\Debug\net9.0\GoldenStandard.csproj.AssemblyReference.cache
+C:\Users\laste\Desktop\v2 — копия\GoldenStandard\GoldenStandard\obj\Debug\net9.0\Avalonia\Resources.Inputs.cache
+C:\Users\laste\Desktop\v2 — копия\GoldenStandard\GoldenStandard\obj\Debug\net9.0\Avalonia\resources
+C:\Users\laste\Desktop\v2 — копия\GoldenStandard\GoldenStandard\obj\Debug\net9.0\GoldenStandard.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\laste\Desktop\v2 — копия\GoldenStandard\GoldenStandard\obj\Debug\net9.0\GoldenStandard.AssemblyInfoInputs.cache
+C:\Users\laste\Desktop\v2 — копия\GoldenStandard\GoldenStandard\obj\Debug\net9.0\GoldenStandard.AssemblyInfo.cs
+C:\Users\laste\Desktop\v2 — копия\GoldenStandard\GoldenStandard\obj\Debug\net9.0\GoldenStandard.csproj.CoreCompileInputs.cache
+C:\Users\laste\Desktop\v2 — копия\GoldenStandard\GoldenStandard\obj\Debug\net9.0\GoldenStandard.sourcelink.json
+C:\Users\laste\Desktop\v2 — копия\GoldenStandard\GoldenStandard\obj\Debug\net9.0\GoldenSt.F3B83403.Up2Date
+C:\Users\laste\Desktop\v2 — копия\GoldenStandard\GoldenStandard\obj\Debug\net9.0\GoldenStandard.dll
+C:\Users\laste\Desktop\v2 — копия\GoldenStandard\GoldenStandard\obj\Debug\net9.0\refint\GoldenStandard.dll
+C:\Users\laste\Desktop\v2 — копия\GoldenStandard\GoldenStandard\obj\Debug\net9.0\GoldenStandard.pdb
+C:\Users\laste\Desktop\v2 — копия\GoldenStandard\GoldenStandard\obj\Debug\net9.0\GoldenStandard.genruntimeconfig.cache
+C:\Users\laste\Desktop\v2 — копия\GoldenStandard\GoldenStandard\obj\Debug\net9.0\ref\GoldenStandard.dll
+C:\Users\laste\Desktop\v2 — копия\GoldenStandard\GoldenStandard\bin\Debug\net9.0\AsyncImageLoader.Avalonia.dll
