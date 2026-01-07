@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>GoldenStandard</id>
+    <version>1.0.0</version>
+    <authors>GoldenStandard</authors>
+    <description>Package Description</description>
+    <repository type="git" commit="b8d7a766d66af79d7ec297f6c1249f3666f282e3" />
+    <dependencies>
+      <group targetFramework="net9.0">
+        <dependency id="AsyncImageLoader.Avalonia" version="3.5.0" exclude="Build,Analyzers" />
+        <dependency id="Avalonia" version="11.3.10" exclude="Build,Analyzers" />
+        <dependency id="Avalonia.Desktop" version="11.3.10" exclude="Build,Analyzers" />
+        <dependency id="Avalonia.Diagnostics" version="11.3.10" exclude="Build,Analyzers" />
+        <dependency id="Avalonia.Fonts.Inter" version="11.3.10" exclude="Build,Analyzers" />
+        <dependency id="Avalonia.FreeDesktop" version="11.3.10" exclude="Build,Analyzers" />
+        <dependency id="Avalonia.ReactiveUI" version="11.3.8" exclude="Build,Analyzers" />
+        <dependency id="Avalonia.Themes.Fluent" version="11.3.10" exclude="Build,Analyzers" />
+        <dependency id="CommunityToolkit.Mvvm" version="8.4.0" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="C:\Users\laste\Desktop\v2 — копия\GoldenStandard\GoldenStandard\bin\Debug\net9.0\GoldenStandard.runtimeconfig.json" target="lib\net9.0\GoldenStandard.runtimeconfig.json" />
+    <file src="C:\Users\laste\Desktop\v2 — копия\GoldenStandard\GoldenStandard\bin\Debug\net9.0\GoldenStandard.dll" target="lib\net9.0\GoldenStandard.dll" />
+  </files>
+</package>
