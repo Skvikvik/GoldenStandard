@@ -32,6 +32,9 @@ build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 [C:/Users/laste/Desktop/goldenstandard/GoldenStandard/GoldenStandard/Views/AddProductView.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
+[C:/Users/laste/Desktop/goldenstandard/GoldenStandard/GoldenStandard/Views/EditProductView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
 [C:/Users/laste/Desktop/goldenstandard/GoldenStandard/GoldenStandard/Views/LoginView.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 

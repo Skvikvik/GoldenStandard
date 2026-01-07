@@ -11,7 +11,6 @@
 	</UserControl.Resources>
 
 	<Grid RowDefinitions="Auto, Auto, *" Background="#F5F5F5">
-
 		<Border Grid.Row="0" Background="#3A3A3A" Padding="15">
 			<Grid>
 				<TextBlock Text="GOLDEN STANDARD" Foreground="#F0F0F0" LetterSpacing="2" FontWeight="Light" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="18"/>
@@ -44,6 +43,7 @@
 		<ScrollViewer Grid.Row="2">
 			<StackPanel Margin="10">
 				<WrapPanel HorizontalAlignment="Center">
+
 					<Button Command="{Binding GoToAddProduct}" Padding="5" Background="Transparent">
 						<Border Background="White" Width="170" Height="220" CornerRadius="12" BorderBrush="Goldenrod" BorderThickness="2">
 							<StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="10">
@@ -59,6 +59,7 @@
 								<WrapPanel Orientation="Horizontal"/>
 							</ItemsPanelTemplate>
 						</ItemsControl.ItemsPanel>
+
 						<ItemsControl.ItemTemplate>
 							<DataTemplate x:DataType="models:Product">
 								<Button Background="Transparent" Padding="5"
@@ -66,18 +67,24 @@
                                         CommandParameter="{Binding}">
 									<Border Background="White" Width="170" Height="220" CornerRadius="12" BoxShadow="0 2 5 0 #15000000">
 										<Grid RowDefinitions="110, *">
-											<Border Grid.Row="0" Background="#F9F9F9" CornerRadius="12,12,0,0">
+											<Border Grid.Row="0" Background="#F9F9F9" CornerRadius="12,12,0,0" ClipToBounds="True">
 												<Grid>
-													<Image Source="/Assets/avalonia-logo.ico" Opacity="0.4" Margin="30"/>
+													<Image Source="/Assets/avalonia-logo.ico"
+                                                           Opacity="0.2"
+                                                           Margin="40"
+                                                           IsVisible="{Binding ImageSource, Converter={x:Static ObjectConverters.IsNull}}"/>
+
+													<Image Source="{Binding ImageSource}"
+                                                           Stretch="UniformToFill"
+                                                           IsVisible="{Binding ImageSource, Converter={x:Static ObjectConverters.IsNotNull}}"/>
 
 													<Border HorizontalAlignment="Right" VerticalAlignment="Top" Margin="8" Padding="5,2"
-															Background="White" CornerRadius="4"
-															BorderBrush="{Binding QualityPercentage, Converter={StaticResource QualityColorConverter}}"
-															BorderThickness="1">
+                                                            Background="White" CornerRadius="4"
+                                                            BorderBrush="{Binding QualityPercentage, Converter={StaticResource QualityColorConverter}}"
+                                                            BorderThickness="1">
 														<TextBlock Text="{Binding QualityPercentage, StringFormat={}{0}%}"
-																   FontSize="10"
-																   FontWeight="Bold"
-																   Foreground="{Binding QualityPercentage, Converter={StaticResource QualityColorConverter}}"/>
+                                                                   FontSize="10" FontWeight="Bold"
+                                                                   Foreground="{Binding QualityPercentage, Converter={StaticResource QualityColorConverter}}"/>
 													</Border>
 												</Grid>
 											</Border>
@@ -88,7 +95,7 @@
 												<StackPanel Orientation="Horizontal" Spacing="5">
 													<TextBlock Text="★" Foreground="Orange" FontSize="12"/>
 													<TextBlock Text="{Binding Rating, StringFormat={}{0:N1}}" FontSize="12" FontWeight="Bold" VerticalAlignment="Center"/>
-													<TextBlock Text="{Binding ReviewsCount, StringFormat='({0})'}" Foreground="#999999" FontSize="11" VerticalAlignment="Center"/>
+													<TextBlock Text="{Binding ReviewsCount, StringFormat={}({0})}" Foreground="#999999" FontSize="11" VerticalAlignment="Center"/>
 												</StackPanel>
 
 												<TextBlock Text="{Binding Price, StringFormat={}{0} ₽}" Foreground="Goldenrod" FontWeight="Heavy" FontSize="15" Margin="0,2,0,0"/>
@@ -103,9 +110,11 @@
 				</WrapPanel>
 
 				<StackPanel Margin="0,20">
-					<Button Command="{Binding LoadMoreCommand}" Content="Показать еще" HorizontalAlignment="Center"
-                            IsVisible="{Binding !IsBusy}" Background="#3A3A3A" Foreground="White" CornerRadius="5" Padding="20,10"/>
-					<ProgressBar IsIndeterminate="True" IsVisible="{Binding IsBusy}" HorizontalAlignment="Center" Width="200" Foreground="Goldenrod"/>
+					<ProgressBar IsIndeterminate="True"
+                                 IsVisible="{Binding IsBusy}"
+                                 HorizontalAlignment="Center"
+                                 Width="200"
+                                 Foreground="Goldenrod"/>
 				</StackPanel>
 			</StackPanel>
 		</ScrollViewer>

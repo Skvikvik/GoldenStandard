@@ -15,21 +15,19 @@ public class MainViewModel : ReactiveObject
         set => this.RaiseAndSetIfChanged(ref _currentPage, value);
     }
 
+    private ProductListViewModel _productList;
+    public ProductListViewModel ProductList => _productList ??= new ProductListViewModel(this);
+
     public MainViewModel()
     {
         _instance = this;
         ShowLogin();
     }
 
-
     public void ShowLogin() => CurrentPage = new LoginViewModel(this);
-
     public void ShowRegistration() => CurrentPage = new RegistrationViewModel(this);
-
-    public void ShowList() => CurrentPage = new ProductListViewModel(this);
-
+    public void ShowList() => CurrentPage = ProductList;
     public void ShowMainList() => ShowList();
-
     public void ShowAddProduct() => CurrentPage = new AddProductViewModel(this);
 
     public void ShowProductDetail(Product p)

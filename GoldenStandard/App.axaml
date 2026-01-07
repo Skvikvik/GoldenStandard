@@ -1,7 +1,34 @@
 <Application xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:GoldenStandard.ViewModels"
+             xmlns:v="using:GoldenStandard.Views"
              x:Class="GoldenStandard.App"
              RequestedThemeVariant="Light">
+
+	<Application.DataTemplates>
+		<DataTemplate DataType="{x:Type vm:LoginViewModel}">
+			<v:LoginView/>
+		</DataTemplate>
+		<DataTemplate DataType="{x:Type vm:RegistrationViewModel}">
+			<v:RegistrationView/>
+		</DataTemplate>
+		<DataTemplate DataType="{x:Type vm:ProductListViewModel}">
+			<v:ProductListView/>
+		</DataTemplate>
+		<DataTemplate DataType="{x:Type vm:ProductDetailViewModel}">
+			<v:ProductDetailView/>
+		</DataTemplate>
+		<DataTemplate DataType="{x:Type vm:AddProductViewModel}">
+			<v:AddProductView/>
+		</DataTemplate>
+		<DataTemplate DataType="{x:Type vm:ProfileViewModel}">
+			<v:ProfileView/>
+		</DataTemplate>
+		<DataTemplate DataType="{x:Type vm:EditProductViewModel}">
+			<v:EditProductView/>
+		</DataTemplate>
+	</Application.DataTemplates>
+
 	<Application.Styles>
 		<FluentTheme />
 
