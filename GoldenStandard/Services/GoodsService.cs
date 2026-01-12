@@ -4,97 +4,77 @@ using System.Collections.ObjectModel;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
-using GoldenStandard.Models;
 using System.Linq;
+using GoldenStandard.Models;
 
 namespace GoldenStandard.Services;
 
 public class GoodsService
 {
+    private readonly HttpClient _client;
+
+    public GoodsService()
+    {
+        _client = new HttpClient();
+        ApiService.Authenticate(_client);
+    }
+
     public async Task<List<Product>> GetProductsAsync(int offset = 0, int limit = 20)
     {
-        using var client = new HttpClient();
-        ApiService.Authenticate(client);
-
-        // Запрашиваем чистый список, так как сервер не поддерживает фильтрацию через URL
-        var url = $"{ApiService.BaseUrl}/api/goods/?offset={offset}&limit={limit}";
-
         try
         {
-            System.Diagnostics.Debug.WriteLine($"[API Request]: {url}");
-            var products = await client.GetFromJsonAsync<List<Product>>(url);
-
+            var url = $"{ApiService.BaseUrl}/api/goods/?offset={offset}&limit={limit}";
+            var products = await _client.GetFromJsonAsync<List<Product>>(url);
             if (products != null)
             {
-                foreach (var product in products) FixAndNotify(product);
+                foreach (var p in products) FixAndNotify(p);
                 return products;
             }
-            return new List<Product>();
         }
-        catch (Exception ex)
-        {
-            System.Diagnostics.Debug.WriteLine($"[API Error]: {ex.Message}");
-            return new List<Product>();
-        }
+        catch (Exception ex) { System.Diagnostics.Debug.WriteLine($"Error: {ex.Message}"); }
+        return new List<Product>();
     }
 
     public async Task<Product?> GetProductDetailsAsync(int id)
     {
-        using var client = new HttpClient();
-        ApiService.Authenticate(client);
         try
         {
-            var product = await client.GetFromJsonAsync<Product>($"{ApiService.BaseUrl}/api/goods/{id}/");
+            var product = await _client.GetFromJsonAsync<Product>($"{ApiService.BaseUrl}/api/goods/{id}/");
             if (product != null) FixAndNotify(product);
             return product;
         }
-        catch (Exception ex)
-        {
-            System.Diagnostics.Debug.WriteLine($"Ошибка деталей: {ex.Message}");
-            return null;
-        }
+        catch { return null; }
     }
 
     public async Task<bool> AddProductAsync(string name, string composition, decimal price, string imageUrl)
     {
-        using var client = new HttpClient();
-        ApiService.Authenticate(client);
         var payload = new { name, composition, description = composition, price, image_url = imageUrl };
-        try
-        {
-            var response = await client.PostAsJsonAsync($"{ApiService.BaseUrl}/api/goods/", payload);
-            return response.IsSuccessStatusCode;
-        }
-        catch (Exception ex)
-        {
-            System.Diagnostics.Debug.WriteLine($"Ошибка отправки: {ex.Message}");
-            return false;
-        }
+        var response = await _client.PostAsJsonAsync($"{ApiService.BaseUrl}/api/goods/", payload);
+        return response.IsSuccessStatusCode;
+    }
+
+    public async Task<bool> UpdateProductAsync(int id, string name, string composition, decimal price, string imageUrl)
+    {
+        var payload = new { name, composition, description = composition, price, image_url = imageUrl };
+        var response = await _client.PutAsJsonAsync($"{ApiService.BaseUrl}/api/goods/{id}/", payload);
+        return response.IsSuccessStatusCode;
     }
 
     public async Task<bool> DeleteProductAsync(int id)
     {
-        using var client = new HttpClient();
-        ApiService.Authenticate(client);
-        try
-        {
-            var response = await client.DeleteAsync($"{ApiService.BaseUrl}/api/goods/{id}/");
-            return response.IsSuccessStatusCode;
-        }
-        catch (Exception ex)
-        {
-            System.Diagnostics.Debug.WriteLine($"Ошибка удаления: {ex.Message}");
-            return false;
-        }
+        var response = await _client.DeleteAsync($"{ApiService.BaseUrl}/api/goods/{id}/");
+        return response.IsSuccessStatusCode;
     }
 
     private void FixAndNotify(Product product)
     {
         if (product == null) return;
         var fixedReviews = product.Reviews?.Select(r => {
-            if (r.User == null) r.User = new User { Username = "Гость" };
+            if (r.User == null || string.IsNullOrWhiteSpace(r.User.Username) || r.User.Username == "guest")
+                r.User = new User { Username = "Гость" };
             return r;
         }).ToList() ?? new List<Review>();
+
         product.Reviews = new ObservableCollection<Review>(fixedReviews);
         product.RefreshRatingUI();
     }

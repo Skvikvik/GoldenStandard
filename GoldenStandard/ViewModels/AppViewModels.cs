@@ -32,7 +32,6 @@ public class MainViewModel : ReactiveObject
     public void ShowList()
     {
         CurrentPage = ProductList;
-        // Используем Dispatcher для безопасного обновления UI из фонового потока
         Task.Run(async () =>
         {
             await ProductList.LoadProductsAsync();

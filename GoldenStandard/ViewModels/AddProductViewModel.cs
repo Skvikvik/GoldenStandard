@@ -50,7 +50,6 @@ public class AddProductViewModel : ReactiveObject
 
                 if (success)
                 {
-                    // Обновляем список, чтобы новый товар появился сразу
                     if (_parent.ProductList != null)
                     {
                         await _parent.ProductList.ResetAndReloadAsync();

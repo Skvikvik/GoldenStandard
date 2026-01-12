@@ -4,7 +4,6 @@ namespace GoldenStandard.Models;
 
 public class User
 {
-    // Сервер присылает логин в поле "username"
     [JsonPropertyName("username")]
     public string Username { get; set; } = "guest";
 }
