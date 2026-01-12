@@ -9,7 +9,6 @@ using GoldenStandard.Models;
 
 namespace GoldenStandard.ViewModels
 {
-    // Этот класс описывает структуру данных, которую понимает сервер
     public class UserProfileDto
     {
         public string username { get; set; } = "";

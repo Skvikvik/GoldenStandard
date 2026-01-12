@@ -4,8 +4,9 @@ namespace GoldenStandard.Models;
 
 public class User
 {
+    // Сервер присылает логин в поле "username"
     [JsonPropertyName("username")]
-    public string Username { get; set; } = "Аноним";
+    public string Username { get; set; } = "guest";
 }
 
 public class Review
@@ -17,5 +18,5 @@ public class Review
     public int Rating { get; set; }
 
     [JsonPropertyName("user")]
-    public User User { get; set; } = new User();
+    public User? User { get; set; }
 }

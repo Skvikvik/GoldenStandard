@@ -9,41 +9,50 @@ namespace GoldenStandard.Services;
 
 public class ReviewService
 {
-    private readonly HttpClient _httpClient = new HttpClient();
-
-    public async Task<(bool result, string error)> AddReviewAsync(Review review)
+    public async Task<(bool result, string error)> AddReviewAsync(int productId, string text, int rating)
     {
         try
         {
-            var resp = await _httpClient.PostAsJsonAsync($"{ApiService.BaseUrl}/api/reviews/", review);
-            return (resp.IsSuccessStatusCode, resp.ReasonPhrase ?? "");
+            using var client = new HttpClient();
+            ApiService.Authenticate(client); // Токен обязателен
+
+            var url = $"{ApiService.BaseUrl}/api/goods/reviews/{productId}";
+            var payload = new { text = text, rating = rating };
+
+            var resp = await client.PostAsJsonAsync(url, payload);
+
+            if (resp.IsSuccessStatusCode)
+                return (true, "");
+
+            var errorContent = await resp.Content.ReadAsStringAsync();
+            return (false, $"Server error: {resp.StatusCode} - {errorContent}");
         }
         catch (Exception ex)
         {
             return (false, ex.Message);
         }
     }
+
     public async Task<List<Review>> GetReviewsAsync(int productId)
     {
-        using var client = new HttpClient();
-
-        var url = $"{ApiService.BaseUrl}/api/goods/reviews/{productId}";
-
         try
         {
+            using var client = new HttpClient();
+            // Если получение отзывов тоже требует авторизации, раскомментируй строку ниже:
+            // ApiService.Authenticate(client); 
+
+            var url = $"{ApiService.BaseUrl}/api/goods/reviews/{productId}";
             var response = await client.GetAsync(url);
+
             if (response.IsSuccessStatusCode)
             {
                 return await response.Content.ReadFromJsonAsync<List<Review>>() ?? new List<Review>();
             }
-
-            var error = await response.Content.ReadAsStringAsync();
-            System.Diagnostics.Debug.WriteLine($"Ошибка отзывов: {response.StatusCode} - {error}");
             return new List<Review>();
         }
         catch (Exception ex)
         {
-            System.Diagnostics.Debug.WriteLine($"Ошибка в ReviewService: {ex.Message}");
+            System.Diagnostics.Debug.WriteLine($"ReviewService Get error: {ex.Message}");
             return new List<Review>();
         }
     }

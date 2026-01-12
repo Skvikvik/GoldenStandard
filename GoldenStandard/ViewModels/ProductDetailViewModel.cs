@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Net.Http;
-using System.Net.Http.Json;
 using System.Threading.Tasks;
 using System.Reactive;
+using System.Linq;
 using ReactiveUI;
 using GoldenStandard.Models;
 using GoldenStandard.Services;
@@ -14,75 +13,76 @@ namespace GoldenStandard.ViewModels;
 
 public class ProductDetailViewModel : ReactiveObject
 {
+    private readonly ReviewService _reviewService = new();
+    private readonly GoodsService _goodsService = new();
+    private User? _currentUser;
+
     public Product Product { get; }
-    public ObservableCollection<Review> Reviews { get; }
+    public ObservableCollection<Review> Reviews => Product.Reviews;
     public List<int> StarOptions { get; } = new() { 1, 2, 3, 4, 5 };
 
     private string _newReviewText = "";
-    public string NewReviewText
-    {
-        get => _newReviewText;
-        set => this.RaiseAndSetIfChanged(ref _newReviewText, value);
-    }
+    public string NewReviewText { get => _newReviewText; set => this.RaiseAndSetIfChanged(ref _newReviewText, value); }
 
     private int _newRating = 5;
-    public int NewRating
-    {
-        get => _newRating;
-        set => this.RaiseAndSetIfChanged(ref _newRating, value);
-    }
+    public int NewRating { get => _newRating; set => this.RaiseAndSetIfChanged(ref _newRating, value); }
 
-    // Команды для привязки к кнопкам в AXAML
     public ReactiveCommand<Unit, Unit> SendReviewCommand { get; }
     public ReactiveCommand<Unit, Unit> GoBackCommand { get; }
+    public ReactiveCommand<Unit, Unit> DeleteProductCommand { get; }
 
     public ProductDetailViewModel(Product product)
     {
         Product = product;
-        Reviews = new ObservableCollection<Review>(product.Reviews ?? new List<Review>());
+        _ = Product.LoadImageAsync(ApiService.BaseUrl);
+        _ = LoadUserProfile();
 
-        // Инициализация команд
         SendReviewCommand = ReactiveCommand.CreateFromTask(SendReviewAsync);
         GoBackCommand = ReactiveCommand.Create(() => MainViewModel.Instance.ShowList());
+
+        DeleteProductCommand = ReactiveCommand.CreateFromTask(async () =>
+        {
+            var success = await _goodsService.DeleteProductAsync(Product.Id);
+            if (success)
+            {
+                // Удаляем товар из локальной памяти списка
+                if (MainViewModel.Instance.ProductList != null)
+                {
+                    MainViewModel.Instance.ProductList.RemoveProductFromCache(Product.Id);
+                }
+
+                // Возврат к списку
+                MainViewModel.Instance.ShowList();
+            }
+        });
+    }
+
+    private async Task LoadUserProfile()
+    {
+        try { _currentUser = await ApiService.GetProfileAsync(); }
+        catch (Exception ex) { System.Diagnostics.Debug.WriteLine($"Ошибка профиля: {ex.Message}"); }
     }
 
     private async Task SendReviewAsync()
     {
-        // Базовая валидация перед отправкой
         if (string.IsNullOrWhiteSpace(NewReviewText)) return;
-
-        try
+        var (success, error) = await _reviewService.AddReviewAsync(Product.Id, NewReviewText, NewRating);
+        if (success)
         {
-            using var client = new HttpClient();
-            ApiService.Authenticate(client);
-
-            var url = $"{ApiService.BaseUrl}/api/goods/reviews/{Product.Id}";
-            var payload = new { text = NewReviewText, rating = NewRating };
-
-            var response = await client.PostAsJsonAsync(url, payload);
-
-            if (response.IsSuccessStatusCode)
+            if (_currentUser == null) _currentUser = await ApiService.GetProfileAsync();
+            var newReview = new Review
             {
-                // Создаем объект отзыва
-                var newReview = new Review
-                {
-                    Text = NewReviewText,
-                    Rating = NewRating,
-                    User = new User { Username = "Вы" }
-                };
+                Text = NewReviewText,
+                Rating = NewRating,
+                User = new User { Username = _currentUser?.Username ?? "guest" }
+            };
 
-                // Обновляем UI в основном потоке
-                Dispatcher.UIThread.Post(() =>
-                {
-                    Reviews.Insert(0, newReview);
-                    NewReviewText = "";
-                    NewRating = 5;
-                });
-            }
-        }
-        catch (Exception ex)
-        {
-            System.Diagnostics.Debug.WriteLine($"Error sending review: {ex.Message}");
+            Dispatcher.UIThread.Post(() => {
+                Product.Reviews.Insert(0, newReview);
+                Product.RefreshRatingUI();
+                NewReviewText = "";
+                NewRating = 5;
+            });
         }
     }
 }

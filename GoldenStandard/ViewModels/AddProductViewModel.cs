@@ -31,8 +31,15 @@ public class AddProductViewModel : ReactiveObject
         _parent = parent;
 
         var canSave = this.WhenAnyValue(
-            x => x.Name, x => x.Price, x => x.Description, x => x.IsBusy,
-            (n, p, d, b) => !string.IsNullOrWhiteSpace(n) && p > 0 && !string.IsNullOrWhiteSpace(d) && !b);
+            x => x.Name,
+            x => x.Price,
+            x => x.Description,
+            x => x.IsBusy,
+            (n, p, d, b) =>
+                !string.IsNullOrWhiteSpace(n) &&
+                p > 0 &&
+                !string.IsNullOrWhiteSpace(d) &&
+                !b);
 
         SaveCommand = ReactiveCommand.CreateFromTask(async () =>
         {
@@ -40,9 +47,25 @@ public class AddProductViewModel : ReactiveObject
             try
             {
                 var success = await _goodsService.AddProductAsync(Name, Description, Price, ImageUrl);
-                if (success) _parent.ShowMainList();
+
+                if (success)
+                {
+                    // Обновляем список, чтобы новый товар появился сразу
+                    if (_parent.ProductList != null)
+                    {
+                        await _parent.ProductList.ResetAndReloadAsync();
+                    }
+                    _parent.ShowMainList();
+                }
             }
-            finally { IsBusy = false; }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Ошибка при сохранении: {ex.Message}");
+            }
+            finally
+            {
+                IsBusy = false;
+            }
         }, canSave);
 
         CancelCommand = ReactiveCommand.Create(() => _parent.ShowMainList());

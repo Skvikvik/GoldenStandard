@@ -26,96 +26,66 @@
 
 		<Border Grid.Row="1" Background="#ECECEC" BorderBrush="#DCDCDC" BorderThickness="0,0,0,1" Padding="12">
 			<Grid ColumnDefinitions="*, 220">
-				<TextBox Grid.Column="0"
-                         Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
-                         Watermark="Поиск товара..."
-                         Background="White"
-                         CornerRadius="5"
-                         Margin="0,0,10,0"/>
-
-				<ComboBox Grid.Column="1"
-                          ItemsSource="{Binding SortModes}"
-                          SelectedItem="{Binding SelectedSortMode}"
-                          HorizontalAlignment="Stretch"/>
+				<TextBox Grid.Column="0" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" Watermark="Поиск товара..." Background="White" CornerRadius="5" Margin="0,0,10,0"/>
+				<ComboBox Grid.Column="1" ItemsSource="{Binding SortModes}" SelectedItem="{Binding SelectedSortMode}" HorizontalAlignment="Stretch"/>
 			</Grid>
 		</Border>
 
 		<ScrollViewer Grid.Row="2">
 			<StackPanel Margin="10">
-				<WrapPanel HorizontalAlignment="Center">
+				<Button Command="{Binding GoToAddProduct}" HorizontalAlignment="Stretch" Height="42" Margin="5,5,5,15" Background="White" BorderBrush="Goldenrod" BorderThickness="1.5" CornerRadius="10">
+					<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="12">
+						<TextBlock Text="+" FontSize="24" Foreground="Goldenrod" FontWeight="Bold" VerticalAlignment="Center" Margin="0,0,0,2"/>
+						<TextBlock Text="ДОБАВИТЬ НОВЫЙ ТОВАР" FontSize="12" FontWeight="Bold" Foreground="#333333" VerticalAlignment="Center"/>
+					</StackPanel>
+				</Button>
 
-					<Button Command="{Binding GoToAddProduct}" Padding="5" Background="Transparent">
-						<Border Background="White" Width="170" Height="220" CornerRadius="12" BorderBrush="Goldenrod" BorderThickness="2">
-							<StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="10">
-								<TextBlock Text="+" FontSize="60" Foreground="Goldenrod" HorizontalAlignment="Center"/>
-								<TextBlock Text="Новый товар" FontWeight="Bold" Foreground="#333333" HorizontalAlignment="Center"/>
-							</StackPanel>
-						</Border>
-					</Button>
-
-					<ItemsControl ItemsSource="{Binding Products}">
-						<ItemsControl.ItemsPanel>
-							<ItemsPanelTemplate>
-								<WrapPanel Orientation="Horizontal"/>
-							</ItemsPanelTemplate>
-						</ItemsControl.ItemsPanel>
-
-						<ItemsControl.ItemTemplate>
-							<DataTemplate x:DataType="models:Product">
-								<Button Background="Transparent" Padding="5"
-                                        Command="{Binding $parent[UserControl].((vm:ProductListViewModel)DataContext).SelectProductCommand}"
-                                        CommandParameter="{Binding}">
-									<Border Background="White" Width="170" Height="220" CornerRadius="12" BoxShadow="0 2 5 0 #15000000">
-										<Grid RowDefinitions="110, *">
-											<Border Grid.Row="0" Background="#F9F9F9" CornerRadius="12,12,0,0" ClipToBounds="True">
-												<Grid>
-													<Image Source="/Assets/avalonia-logo.ico"
-                                                           Opacity="0.2"
-                                                           Margin="40"
-                                                           IsVisible="{Binding ImageSource, Converter={x:Static ObjectConverters.IsNull}}"/>
-
-													<Image Source="{Binding ImageSource}"
-                                                           Stretch="UniformToFill"
-                                                           IsVisible="{Binding ImageSource, Converter={x:Static ObjectConverters.IsNotNull}}"/>
-
-													<Border HorizontalAlignment="Right" VerticalAlignment="Top" Margin="8" Padding="5,2"
-                                                            Background="White" CornerRadius="4"
-                                                            BorderBrush="{Binding QualityPercentage, Converter={StaticResource QualityColorConverter}}"
-                                                            BorderThickness="1">
-														<TextBlock Text="{Binding QualityPercentage, StringFormat={}{0}%}"
-                                                                   FontSize="10" FontWeight="Bold"
-                                                                   Foreground="{Binding QualityPercentage, Converter={StaticResource QualityColorConverter}}"/>
-													</Border>
-												</Grid>
-											</Border>
-
-											<StackPanel Grid.Row="1" Margin="10,5" Spacing="2">
-												<TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="13" Height="34" TextWrapping="Wrap" TextTrimming="CharacterEllipsis"/>
-
-												<StackPanel Orientation="Horizontal" Spacing="5">
-													<TextBlock Text="★" Foreground="Orange" FontSize="12"/>
-													<TextBlock Text="{Binding Rating, StringFormat={}{0:N1}}" FontSize="12" FontWeight="Bold" VerticalAlignment="Center"/>
-													<TextBlock Text="{Binding ReviewsCount, StringFormat={}({0})}" Foreground="#999999" FontSize="11" VerticalAlignment="Center"/>
-												</StackPanel>
-
-												<TextBlock Text="{Binding Price, StringFormat={}{0} ₽}" Foreground="Goldenrod" FontWeight="Heavy" FontSize="15" Margin="0,2,0,0"/>
-												<TextBlock Text="В наличии" FontSize="10" Foreground="#27AE60"/>
+				<ItemsControl ItemsSource="{Binding Products}">
+					<ItemsControl.ItemsPanel>
+						<ItemsPanelTemplate>
+							<WrapPanel Orientation="Horizontal" HorizontalAlignment="Center"/>
+						</ItemsPanelTemplate>
+					</ItemsControl.ItemsPanel>
+					<ItemsControl.ItemTemplate>
+						<DataTemplate x:DataType="models:Product">
+							<Button Background="Transparent" Padding="5" Command="{Binding $parent[UserControl].((vm:ProductListViewModel)DataContext).SelectProductCommand}" CommandParameter="{Binding}">
+								<Border Background="White" Width="170" Height="220" CornerRadius="12" BoxShadow="0 2 5 0 #15000000">
+									<Grid RowDefinitions="110, *">
+										<Border Grid.Row="0" Background="#F9F9F9" CornerRadius="12,12,0,0" ClipToBounds="True">
+											<Grid>
+												<Image Source="/Assets/avalonia-logo.ico" Opacity="0.2" Margin="40" IsVisible="{Binding ImageSource, Converter={x:Static ObjectConverters.IsNull}}"/>
+												<Image Source="{Binding ImageSource}" Stretch="UniformToFill" IsVisible="{Binding ImageSource, Converter={x:Static ObjectConverters.IsNotNull}}"/>
+												<Border HorizontalAlignment="Right" VerticalAlignment="Top" Margin="8" Padding="5,2" Background="White" CornerRadius="4" BorderBrush="{Binding QualityPercentage, Converter={StaticResource QualityColorConverter}}" BorderThickness="1">
+													<TextBlock Text="{Binding QualityPercentage, StringFormat={}{0}%}" FontSize="10" FontWeight="Bold" Foreground="{Binding QualityPercentage, Converter={StaticResource QualityColorConverter}}"/>
+												</Border>
+											</Grid>
+										</Border>
+										<StackPanel Grid.Row="1" Margin="10,5" Spacing="2">
+											<TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="13" Height="34" TextWrapping="Wrap" TextTrimming="CharacterEllipsis"/>
+											<StackPanel Orientation="Horizontal" Spacing="5" VerticalAlignment="Center">
+												<TextBlock Text="★" Foreground="Orange" FontSize="12" VerticalAlignment="Center"/>
+												<TextBlock Text="{Binding Rating, StringFormat={}{0:N1}}" FontSize="12" FontWeight="Bold" VerticalAlignment="Center"/>
+												<TextBlock Text="{Binding ReviewsCountBracket}" Foreground="#999999" FontSize="11" VerticalAlignment="Center"/>
 											</StackPanel>
-										</Grid>
-									</Border>
-								</Button>
-							</DataTemplate>
-						</ItemsControl.ItemTemplate>
-					</ItemsControl>
-				</WrapPanel>
+											<TextBlock Text="{Binding Price, StringFormat={}{0} ₽}" Foreground="Goldenrod" FontWeight="Heavy" FontSize="15" Margin="0,2,0,0"/>
+											<TextBlock Text="В наличии" FontSize="10" Foreground="#27AE60"/>
+										</StackPanel>
+									</Grid>
+								</Border>
+							</Button>
+						</DataTemplate>
+					</ItemsControl.ItemTemplate>
+				</ItemsControl>
 
-				<StackPanel Margin="0,20">
-					<ProgressBar IsIndeterminate="True"
-                                 IsVisible="{Binding IsBusy}"
-                                 HorizontalAlignment="Center"
-                                 Width="200"
-                                 Foreground="Goldenrod"/>
-				</StackPanel>
+				<Button Command="{Binding LoadMoreCommand}"
+                        IsVisible="{Binding CanLoadMore}"
+                        HorizontalAlignment="Stretch"
+                        Margin="10" Padding="10"
+                        Background="#E0E0E0">
+					<TextBlock Text="Загрузить еще..." HorizontalAlignment="Center" FontWeight="SemiBold" Foreground="#666666"/>
+				</Button>
+
+				<ProgressBar IsIndeterminate="True" IsVisible="{Binding IsBusy}" Height="2" Margin="10,0"/>
 			</StackPanel>
 		</ScrollViewer>
 	</Grid>

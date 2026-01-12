@@ -1,37 +1,39 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 using GoldenStandard.Models;
+using System.Linq;
 
 namespace GoldenStandard.Services;
 
 public class GoodsService
 {
-    // ИСПРАВЛЕНО: Добавлен параметр search. 
-    // Если поиск не передан, он будет пустой строкой по умолчанию.
-    public async Task<List<Product>> GetProductsAsync(int offset = 0, string search = "", int limit = 20)
+    public async Task<List<Product>> GetProductsAsync(int offset = 0, int limit = 20)
     {
         using var client = new HttpClient();
         ApiService.Authenticate(client);
 
-        // Формируем URL с учетом поиска. Uri.EscapeDataString нужен для корректной передачи пробелов/кириллицы.
+        // Запрашиваем чистый список, так как сервер не поддерживает фильтрацию через URL
         var url = $"{ApiService.BaseUrl}/api/goods/?offset={offset}&limit={limit}";
-
-        if (!string.IsNullOrWhiteSpace(search))
-        {
-            url += $"&search={Uri.EscapeDataString(search)}";
-        }
 
         try
         {
-            // Возвращаем пустой список вместо null в случае неудачи (?? new())
-            return await client.GetFromJsonAsync<List<Product>>(url) ?? new List<Product>();
+            System.Diagnostics.Debug.WriteLine($"[API Request]: {url}");
+            var products = await client.GetFromJsonAsync<List<Product>>(url);
+
+            if (products != null)
+            {
+                foreach (var product in products) FixAndNotify(product);
+                return products;
+            }
+            return new List<Product>();
         }
         catch (Exception ex)
         {
-            System.Diagnostics.Debug.WriteLine($"Ошибка при получении списка: {ex.Message}");
+            System.Diagnostics.Debug.WriteLine($"[API Error]: {ex.Message}");
             return new List<Product>();
         }
     }
@@ -42,36 +44,58 @@ public class GoodsService
         ApiService.Authenticate(client);
         try
         {
-            return await client.GetFromJsonAsync<Product>($"{ApiService.BaseUrl}/api/goods/{id}");
+            var product = await client.GetFromJsonAsync<Product>($"{ApiService.BaseUrl}/api/goods/{id}/");
+            if (product != null) FixAndNotify(product);
+            return product;
         }
-        catch { return null; }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine($"Ошибка деталей: {ex.Message}");
+            return null;
+        }
     }
 
-    public async Task<bool> AddProductAsync(string name, string description, decimal price, string imageUrl)
+    public async Task<bool> AddProductAsync(string name, string composition, decimal price, string imageUrl)
     {
         using var client = new HttpClient();
         ApiService.Authenticate(client);
-
-        var url = $"{ApiService.BaseUrl}/api/goods/";
-
-        var payload = new
-        {
-            name = name,
-            description = description,
-            price = price,
-            image_url = string.IsNullOrEmpty(imageUrl) ? null : imageUrl,
-            composition = description
-        };
-
+        var payload = new { name, composition, description = composition, price, image_url = imageUrl };
         try
         {
-            var response = await client.PostAsJsonAsync(url, payload);
+            var response = await client.PostAsJsonAsync($"{ApiService.BaseUrl}/api/goods/", payload);
             return response.IsSuccessStatusCode;
         }
         catch (Exception ex)
         {
-            System.Diagnostics.Debug.WriteLine($"Ошибка API: {ex.Message}");
+            System.Diagnostics.Debug.WriteLine($"Ошибка отправки: {ex.Message}");
             return false;
         }
+    }
+
+    public async Task<bool> DeleteProductAsync(int id)
+    {
+        using var client = new HttpClient();
+        ApiService.Authenticate(client);
+        try
+        {
+            var response = await client.DeleteAsync($"{ApiService.BaseUrl}/api/goods/{id}/");
+            return response.IsSuccessStatusCode;
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine($"Ошибка удаления: {ex.Message}");
+            return false;
+        }
+    }
+
+    private void FixAndNotify(Product product)
+    {
+        if (product == null) return;
+        var fixedReviews = product.Reviews?.Select(r => {
+            if (r.User == null) r.User = new User { Username = "Гость" };
+            return r;
+        }).ToList() ?? new List<Review>();
+        product.Reviews = new ObservableCollection<Review>(fixedReviews);
+        product.RefreshRatingUI();
     }
 }
