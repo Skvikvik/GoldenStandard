@@ -16,7 +16,6 @@ namespace GoldenStandard.Converters
         {
             if (value is string url && !string.IsNullOrWhiteSpace(url))
             {
-                // Если это не полный путь, добавляем BaseUrl
                 if (!url.StartsWith("http") && !url.StartsWith("avares://"))
                 {
                     url = ApiService.BaseUrl.TrimEnd('/') + "/" + url.TrimStart('/');
@@ -24,8 +23,7 @@ namespace GoldenStandard.Converters
 
                 try
                 {
-                    // Используем .GetAwaiter().GetResult() только для простых тестов.
-                    // Для реальных приложений лучше async загрузка в самой модели.
+
                     var bytes = _httpClient.GetByteArrayAsync(url).GetAwaiter().GetResult();
                     using var ms = new MemoryStream(bytes);
                     return new Bitmap(ms);

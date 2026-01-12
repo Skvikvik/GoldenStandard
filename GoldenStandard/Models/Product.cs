@@ -16,13 +16,13 @@ public class Product : ReactiveObject
     [JsonPropertyName("id")] public int Id { get; set; }
     [JsonPropertyName("name")] public string Name { get; set; } = "";
 
+    private string _composition = "";
     [JsonPropertyName("composition")]
     public string Composition
     {
         get => _composition;
         set => this.RaiseAndSetIfChanged(ref _composition, value);
     }
-    private string _composition = "";
 
     [JsonPropertyName("description")]
     public string DescriptionSetter { set => Composition = value; }
@@ -63,7 +63,16 @@ public class Product : ReactiveObject
         }
     }
 
-    [JsonPropertyName("image_url")] public string Image { get; set; } = "";
+    [JsonPropertyName("image_url")]
+    public string Image { get; set; } = "";
+
+    // Псевдоним для совместимости с ViewModel
+    [JsonIgnore]
+    public string ImageUrl
+    {
+        get => Image;
+        set => Image = value;
+    }
 
     private Bitmap? _imageSource;
     [JsonIgnore]
@@ -82,38 +91,12 @@ public class Product : ReactiveObject
         get
         {
             if (string.IsNullOrWhiteSpace(Composition)) return 0;
-
-            // 1. Список вредных добавок (можно дополнять)
-            string[] harmfulIngredients = {
-            "сахар", "е621", "пальмовое", "краситель",
-            "ароматизатор", "консервант", "глутамат", "кофеин",
-            "колер", "кислота"
-        };
-
-            // 2. Разделяем состав по запятым и очищаем каждый элемент
+            string[] harmfulIngredients = { "сахар", "е621", "пальмовое", "краситель", "ароматизатор", "консервант", "глутамат", "кофеин", "колер", "кислота" };
             var ingredients = Composition.Split(new[] { ',', '.' }, StringSplitOptions.RemoveEmptyEntries)
-                                         .Select(i => i.Trim().ToLower())
-                                         .ToList();
-
+                                         .Select(i => i.Trim().ToLower()).ToList();
             if (ingredients.Count == 0) return 0;
-
-            int harmfulCount = 0;
-
-            // 3. Проверяем каждый элемент состава
-            foreach (var ingredient in ingredients)
-            {
-                // Если в элементе (например, "сахарный колер IV") есть хоть одно вредное слово
-                if (harmfulIngredients.Any(h => ingredient.Contains(h)))
-                {
-                    harmfulCount++;
-                }
-            }
-
-            // 4. Расчет: (Всего - Вредных) / Всего * 100
-            double healthScore = (double)(ingredients.Count - harmfulCount) / ingredients.Count;
-            int result = (int)(healthScore * 100);
-
-            return Math.Max(0, result); // Чтобы не ушло в минус
+            int harmfulCount = ingredients.Count(ingredient => harmfulIngredients.Any(h => ingredient.Contains(h)));
+            return Math.Max(0, (int)((double)(ingredients.Count - harmfulCount) / ingredients.Count * 100));
         }
     }
 
@@ -129,7 +112,7 @@ public class Product : ReactiveObject
 
     public async Task LoadImageAsync(string baseUrl)
     {
-        if (string.IsNullOrWhiteSpace(Image) || ImageSource != null) return;
+        if (string.IsNullOrWhiteSpace(Image)) return;
         try
         {
             using var client = new HttpClient();

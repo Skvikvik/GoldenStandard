@@ -9,7 +9,7 @@ namespace GoldenStandard.Services;
 
 public static class ApiService
 {
-    public const string BaseUrl = "http://sarafan.bgig.ru"; // Твой основной хост
+    public const string BaseUrl = "http://sarafan.bgig.ru";
     public static string? AccessToken { get; set; }
 
     public static void Authenticate(HttpClient client)
@@ -27,7 +27,6 @@ public static class ApiService
         {
             using var client = new HttpClient();
             Authenticate(client);
-            // Запрос именно профиля текущего юзера
             var response = await client.GetAsync($"{BaseUrl}/api/user/profile");
 
             if (response.IsSuccessStatusCode)

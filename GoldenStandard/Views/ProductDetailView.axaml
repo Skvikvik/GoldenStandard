@@ -22,18 +22,31 @@
                         Padding="0,10"
                         HorizontalAlignment="Left"/>
 
-				<Button Grid.Column="1"
-                        Command="{Binding DeleteProductCommand}"
-                        Background="#FFF0F0"
-                        BorderBrush="#FFCCCC"
-                        BorderThickness="1"
-                        CornerRadius="6"
-                        Padding="12,5">
-					<StackPanel Orientation="Horizontal" Spacing="5">
-						<TextBlock Text="🗑️" FontSize="14" VerticalAlignment="Center"/>
-						<TextBlock Text="Удалить" Foreground="#D32F2F" FontWeight="Bold" VerticalAlignment="Center" FontSize="12"/>
-					</StackPanel>
-				</Button>
+				<StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="10">
+					<Button Command="{Binding EditProductCommand}"
+                            Background="#E3F2FD"
+                            BorderBrush="#BBDEFB"
+                            BorderThickness="1"
+                            CornerRadius="6"
+                            Padding="12,5">
+						<StackPanel Orientation="Horizontal" Spacing="5">
+							<TextBlock Text="✏️" FontSize="14" VerticalAlignment="Center"/>
+							<TextBlock Text="Изменить" Foreground="#1976D2" FontWeight="Bold" VerticalAlignment="Center" FontSize="12"/>
+						</StackPanel>
+					</Button>
+
+					<Button Command="{Binding DeleteProductCommand}"
+                            Background="#FFF0F0"
+                            BorderBrush="#FFCCCC"
+                            BorderThickness="1"
+                            CornerRadius="6"
+                            Padding="12,5">
+						<StackPanel Orientation="Horizontal" Spacing="5">
+							<TextBlock Text="🗑️" FontSize="14" VerticalAlignment="Center"/>
+							<TextBlock Text="Удалить" Foreground="#D32F2F" FontWeight="Bold" VerticalAlignment="Center" FontSize="12"/>
+						</StackPanel>
+					</Button>
+				</StackPanel>
 			</Grid>
 
 			<Border Background="White" CornerRadius="12" Padding="20" BoxShadow="0 2 10 0 #15000000">

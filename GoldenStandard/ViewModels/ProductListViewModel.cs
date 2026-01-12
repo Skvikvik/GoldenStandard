@@ -108,10 +108,8 @@ public class ProductListViewModel : ReactiveObject
         _ = RefreshCommand.Execute();
     }
 
-    // Принудительная перезагрузка для новых товаров
     public async Task ResetAndReloadAsync() => await RefreshCommand.Execute();
 
-    // Быстрое удаление из памяти для удаленных товаров
     public void RemoveProductFromCache(int productId)
     {
         var item = _allLoadedProducts.FirstOrDefault(p => p.Id == productId);

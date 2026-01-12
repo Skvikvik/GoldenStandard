@@ -30,6 +30,7 @@ public class ProductDetailViewModel : ReactiveObject
     public ReactiveCommand<Unit, Unit> SendReviewCommand { get; }
     public ReactiveCommand<Unit, Unit> GoBackCommand { get; }
     public ReactiveCommand<Unit, Unit> DeleteProductCommand { get; }
+    public ReactiveCommand<Unit, Unit> EditProductCommand { get; } 
 
     public ProductDetailViewModel(Product product)
     {
@@ -40,18 +41,20 @@ public class ProductDetailViewModel : ReactiveObject
         SendReviewCommand = ReactiveCommand.CreateFromTask(SendReviewAsync);
         GoBackCommand = ReactiveCommand.Create(() => MainViewModel.Instance.ShowList());
 
+        EditProductCommand = ReactiveCommand.Create(() =>
+        {
+            MainViewModel.Instance.CurrentPage = new EditProductViewModel(MainViewModel.Instance, Product);
+        });
+
         DeleteProductCommand = ReactiveCommand.CreateFromTask(async () =>
         {
             var success = await _goodsService.DeleteProductAsync(Product.Id);
             if (success)
             {
-                // Удаляем товар из локальной памяти списка
                 if (MainViewModel.Instance.ProductList != null)
                 {
                     MainViewModel.Instance.ProductList.RemoveProductFromCache(Product.Id);
                 }
-
-                // Возврат к списку
                 MainViewModel.Instance.ShowList();
             }
         });
@@ -59,22 +62,31 @@ public class ProductDetailViewModel : ReactiveObject
 
     private async Task LoadUserProfile()
     {
-        try { _currentUser = await ApiService.GetProfileAsync(); }
-        catch (Exception ex) { System.Diagnostics.Debug.WriteLine($"Ошибка профиля: {ex.Message}"); }
+        try
+        {
+            _currentUser = await ApiService.GetProfileAsync();
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine($"Ошибка профиля: {ex.Message}");
+        }
     }
 
     private async Task SendReviewAsync()
     {
         if (string.IsNullOrWhiteSpace(NewReviewText)) return;
+
         var (success, error) = await _reviewService.AddReviewAsync(Product.Id, NewReviewText, NewRating);
+
         if (success)
         {
-            if (_currentUser == null) _currentUser = await ApiService.GetProfileAsync();
+            if (_currentUser == null) await LoadUserProfile();
+
             var newReview = new Review
             {
                 Text = NewReviewText,
                 Rating = NewRating,
-                User = new User { Username = _currentUser?.Username ?? "guest" }
+                User = new User { Username = _currentUser?.Username ?? "Вы" }
             };
 
             Dispatcher.UIThread.Post(() => {

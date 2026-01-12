@@ -14,7 +14,7 @@ public class ReviewService
         try
         {
             using var client = new HttpClient();
-            ApiService.Authenticate(client); // Токен обязателен
+            ApiService.Authenticate(client);
 
             var url = $"{ApiService.BaseUrl}/api/goods/reviews/{productId}";
             var payload = new { text = text, rating = rating };
@@ -38,8 +38,6 @@ public class ReviewService
         try
         {
             using var client = new HttpClient();
-            // Если получение отзывов тоже требует авторизации, раскомментируй строку ниже:
-            // ApiService.Authenticate(client); 
 
             var url = $"{ApiService.BaseUrl}/api/goods/reviews/{productId}";
             var response = await client.GetAsync(url);

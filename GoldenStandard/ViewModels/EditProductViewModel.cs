@@ -11,12 +11,12 @@ public class EditProductViewModel : ReactiveObject
 {
     private readonly MainViewModel _parent;
     private readonly GoodsService _goodsService = new();
-    private readonly Product _targetProduct;
+    private readonly Product _originalProduct;
 
-    private string _name = "";
-    private string _composition = ""; // Теперь используем только состав
+    private string _name;
+    private string _composition;
     private decimal _price;
-    private string _imageUrl = "";
+    private string _imageUrl;
     private bool _isBusy;
 
     public string Name { get => _name; set => this.RaiseAndSetIfChanged(ref _name, value); }
@@ -31,43 +31,36 @@ public class EditProductViewModel : ReactiveObject
     public EditProductViewModel(MainViewModel parent, Product product)
     {
         _parent = parent;
-        _targetProduct = product;
-
-        // Заполняем поля из существующего продукта
-        Name = product.Name;
-        Composition = product.Composition; // ИСПРАВЛЕНО: было Description
-        Price = product.Price;
-        ImageUrl = product.Image;
+        _originalProduct = product;
+        _name = product.Name ?? "";
+        _composition = product.Composition ?? "";
+        _price = product.Price;
+        _imageUrl = product.ImageUrl ?? "";
 
         var canSave = this.WhenAnyValue(
-            x => x.Name, x => x.Price, x => x.Composition, x => x.IsBusy,
-            (n, p, c, b) => !string.IsNullOrWhiteSpace(n) && p > 0 && !string.IsNullOrWhiteSpace(c) && !b);
+            x => x.Name, x => x.Price, x => x.IsBusy,
+            (n, p, b) => !string.IsNullOrWhiteSpace(n) && p > 0 && !b);
 
         SaveCommand = ReactiveCommand.CreateFromTask(async () =>
         {
             IsBusy = true;
             try
             {
-                // Используем тот же метод добавления/обновления
-                var success = await _goodsService.AddProductAsync(Name, Composition, Price, ImageUrl);
+                var success = await _goodsService.UpdateProductAsync(_originalProduct.Id, Name, Composition, Price, ImageUrl);
                 if (success)
                 {
-                    // Обновляем данные в живом объекте списка
-                    _targetProduct.Name = Name;
-                    _targetProduct.Composition = Composition;
-                    _targetProduct.Price = Price;
-                    _targetProduct.RefreshRatingUI();
+                    _originalProduct.Name = Name;
+                    _originalProduct.Composition = Composition;
+                    _originalProduct.Price = Price;
+                    _originalProduct.ImageUrl = ImageUrl;
+                    _ = _originalProduct.LoadImageAsync(ApiService.BaseUrl);
 
-                    _parent.ShowMainList();
+                    _parent.ShowProductDetail(_originalProduct);
                 }
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine($"Error: {ex.Message}");
             }
             finally { IsBusy = false; }
         }, canSave);
 
-        CancelCommand = ReactiveCommand.Create(() => _parent.ShowMainList());
+        CancelCommand = ReactiveCommand.Create(() => _parent.ShowProductDetail(_originalProduct));
     }
 }
