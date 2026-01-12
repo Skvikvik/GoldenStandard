@@ -17,43 +17,22 @@ public class ProductListViewModel : ReactiveObject
     private readonly GoodsService _goodsService = new();
     private int _offset = 0;
     private bool _isBusy;
+    private bool _canLoadMore = true;
     private string _searchText = "";
     private string _selectedSortMode = "Сначала дешевые";
 
-    // Адрес вашего сервера (подставьте свой)
-    private const string BaseUrl = "http://127.0.0.1:8000";
-
+    private readonly List<Product> _allLoadedProducts = new();
     public ObservableCollection<Product> Products { get; } = new();
 
-    public bool IsBusy
-    {
-        get => _isBusy;
-        set => this.RaiseAndSetIfChanged(ref _isBusy, value);
-    }
-
-    public string SearchText
-    {
-        get => _searchText;
-        set => this.RaiseAndSetIfChanged(ref _searchText, value);
-    }
-
-    public string[] SortModes { get; } =
-    {
-        "Сначала дешевые",
-        "Сначала дорогие",
-        "По качеству (состав)",
-        "По рейтингу (звезды)",
-        "По количеству отзывов"
-    };
+    public bool IsBusy { get => _isBusy; set => this.RaiseAndSetIfChanged(ref _isBusy, value); }
+    public string SearchText { get => _searchText; set => this.RaiseAndSetIfChanged(ref _searchText, value); }
+    public bool CanLoadMore { get => _canLoadMore; set => this.RaiseAndSetIfChanged(ref _canLoadMore, value); }
+    public string[] SortModes { get; } = { "Сначала дешевые", "Сначала дорогие", "По качеству (состав)", "По рейтингу (звезды)", "По количеству отзывов" };
 
     public string SelectedSortMode
     {
         get => _selectedSortMode;
-        set
-        {
-            this.RaiseAndSetIfChanged(ref _selectedSortMode, value);
-            ApplySorting();
-        }
+        set { this.RaiseAndSetIfChanged(ref _selectedSortMode, value); ApplyFilterAndSort(); }
     }
 
     public ReactiveCommand<Product, Unit> SelectProductCommand { get; }
@@ -65,86 +44,108 @@ public class ProductListViewModel : ReactiveObject
     {
         _parent = parent;
 
+        LoadMoreCommand = ReactiveCommand.CreateFromTask(async () => {
+            if (IsBusy || !CanLoadMore) return;
+            IsBusy = true;
+            try
+            {
+                int limit = 50;
+                var items = await _goodsService.GetProductsAsync(_offset, limit);
+                if (items != null && items.Count > 0)
+                {
+                    foreach (var i in items)
+                    {
+                        if (_allLoadedProducts.All(p => p.Id != i.Id))
+                        {
+                            _allLoadedProducts.Add(i);
+                            _ = i.LoadImageAsync(ApiService.BaseUrl);
+                        }
+                    }
+                    _offset += items.Count;
+                    CanLoadMore = (items.Count == limit);
+                    ApplyFilterAndSort();
+                }
+                else { CanLoadMore = false; }
+            }
+            finally { IsBusy = false; }
+        });
+
+        RefreshCommand = ReactiveCommand.CreateFromTask(async () => {
+            if (IsBusy) return;
+            _offset = 0;
+            CanLoadMore = true;
+            _allLoadedProducts.Clear();
+            Products.Clear();
+            await LoadMoreCommand.Execute();
+        });
+
         SelectProductCommand = ReactiveCommand.CreateFromTask<Product>(async (p) => {
             if (p == null || IsBusy) return;
             IsBusy = true;
             try
             {
                 var full = await _goodsService.GetProductDetailsAsync(p.Id);
-                _parent.ShowProductDetail(full ?? p);
-            }
-            finally { IsBusy = false; }
-        });
-
-        LoadMoreCommand = ReactiveCommand.CreateFromTask(async () => {
-            if (IsBusy) return;
-            IsBusy = true;
-            try
-            {
-                var items = await _goodsService.GetProductsAsync(_offset, SearchText);
-
-                if (items != null && items.Count > 0)
+                if (full != null)
                 {
-                    foreach (var i in items)
-                    {
-                        Products.Add(i);
-                        // ЗАПУСК ФОНОВОЙ ЗАГРУЗКИ КАРТИНКИ
-                        // Мы не пишем await, чтобы картинки грузились параллельно 
-                        // и не блокировали отрисовку списка
-                        _ = i.LoadImageAsync(BaseUrl);
-                    }
-                    _offset += items.Count;
-                    ApplySorting();
+                    p.Composition = full.Composition;
+                    p.Reviews = full.Reviews;
+                    p.Rating = full.Rating;
+                    p.ReviewsCount = full.ReviewsCount;
+                    p.RefreshRatingUI();
                 }
+                _parent.ShowProductDetail(p);
             }
             finally { IsBusy = false; }
         });
 
-        RefreshCommand = ReactiveCommand.CreateFromTask(async () => {
-            _offset = 0;
-            Products.Clear();
-            await LoadMoreCommand.Execute();
-        });
-
-        GoToAddProduct = ReactiveCommand.Create(() => {
-            _parent.ShowAddProduct();
-        });
+        GoToAddProduct = ReactiveCommand.Create(() => _parent.ShowAddProduct());
 
         this.WhenAnyValue(x => x.SearchText)
-            .Throttle(TimeSpan.FromMilliseconds(500))
-            .DistinctUntilChanged()
+            .Throttle(TimeSpan.FromMilliseconds(250))
             .ObserveOn(RxApp.MainThreadScheduler)
-            .Subscribe(async _ =>
-            {
-                await RefreshCommand.Execute();
-            });
+            .Subscribe(_ => ApplyFilterAndSort());
 
         _ = RefreshCommand.Execute();
     }
 
-    private void ApplySorting()
+    // Принудительная перезагрузка для новых товаров
+    public async Task ResetAndReloadAsync() => await RefreshCommand.Execute();
+
+    // Быстрое удаление из памяти для удаленных товаров
+    public void RemoveProductFromCache(int productId)
     {
-        if (Products == null || Products.Count <= 1) return;
-
-        var sorted = SelectedSortMode switch
+        var item = _allLoadedProducts.FirstOrDefault(p => p.Id == productId);
+        if (item != null)
         {
-            "Сначала дешевые" => Products.OrderBy(p => p.Price).ToList(),
-            "Сначала дорогие" => Products.OrderByDescending(p => p.Price).ToList(),
-            "По качеству (состав)" => Products.OrderByDescending(p => p.QualityPercentage).ToList(),
-            "По рейтингу (звезды)" => Products.OrderByDescending(p => p.Rating).ToList(),
-            "По количеству отзывов" => Products.OrderByDescending(p => p.ReviewsCount).ToList(),
-            _ => Products.ToList()
-        };
-
-        if (!Products.SequenceEqual(sorted))
-        {
-            // Используем Move для сохранения объектов, чтобы не перезагружать картинки заново
-            for (int i = 0; i < sorted.Count; i++)
-            {
-                var oldIndex = Products.IndexOf(sorted[i]);
-                if (oldIndex != i && oldIndex != -1)
-                    Products.Move(oldIndex, i);
-            }
+            _allLoadedProducts.Remove(item);
+            ApplyFilterAndSort();
         }
+    }
+
+    public async Task LoadProductsAsync()
+    {
+        if (_allLoadedProducts.Count == 0 && !IsBusy) await RefreshCommand.Execute();
+    }
+
+    private void ApplyFilterAndSort()
+    {
+        string query = (SearchText ?? "").Trim().ToLower();
+        var filtered = _allLoadedProducts
+            .Where(p => string.IsNullOrWhiteSpace(query) || (p.Name != null && p.Name.ToLower().Contains(query)))
+            .ToList();
+
+        IEnumerable<Product> sorted;
+        switch (SelectedSortMode)
+        {
+            case "Сначала дорогие": sorted = filtered.OrderByDescending(p => p.Price); break;
+            case "По качеству (состав)": sorted = filtered.OrderByDescending(p => p.QualityPercentage); break;
+            case "По рейтингу (звезды)": sorted = filtered.OrderByDescending(p => p.Rating); break;
+            case "По количеству отзывов": sorted = filtered.OrderByDescending(p => p.ReviewsCount); break;
+            default: sorted = filtered.OrderBy(p => p.Price); break;
+        }
+
+        var finalResult = sorted.ToList();
+        Products.Clear();
+        foreach (var p in finalResult) Products.Add(p);
     }
 }

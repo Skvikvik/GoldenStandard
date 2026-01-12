@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Net.Http;
-using System.Net.Http.Json;
-using System.Threading.Tasks;
 using System.Reactive;
-using System.Linq;
+using System.Threading.Tasks;
 using ReactiveUI;
 using GoldenStandard.Models;
 using GoldenStandard.Services;
@@ -12,77 +9,65 @@ namespace GoldenStandard.ViewModels;
 
 public class EditProductViewModel : ReactiveObject
 {
-    private readonly Product _originalProduct;
+    private readonly MainViewModel _parent;
+    private readonly GoodsService _goodsService = new();
+    private readonly Product _targetProduct;
 
-    private string _name;
-    private string _description;
+    private string _name = "";
+    private string _composition = ""; // Теперь используем только состав
     private decimal _price;
-    private string _composition;
+    private string _imageUrl = "";
+    private bool _isBusy;
 
     public string Name { get => _name; set => this.RaiseAndSetIfChanged(ref _name, value); }
-    public string Description { get => _description; set => this.RaiseAndSetIfChanged(ref _description, value); }
-    public decimal Price { get => _price; set => this.RaiseAndSetIfChanged(ref _price, value); }
     public string Composition { get => _composition; set => this.RaiseAndSetIfChanged(ref _composition, value); }
+    public decimal Price { get => _price; set => this.RaiseAndSetIfChanged(ref _price, value); }
+    public string ImageUrl { get => _imageUrl; set => this.RaiseAndSetIfChanged(ref _imageUrl, value); }
+    public bool IsBusy { get => _isBusy; set => this.RaiseAndSetIfChanged(ref _isBusy, value); }
 
     public ReactiveCommand<Unit, Unit> SaveCommand { get; }
     public ReactiveCommand<Unit, Unit> CancelCommand { get; }
 
-    public EditProductViewModel(Product p)
+    public EditProductViewModel(MainViewModel parent, Product product)
     {
-        _originalProduct = p;
+        _parent = parent;
+        _targetProduct = product;
 
-        // Загружаем текущие данные в поля ввода
-        Name = p.Name;
-        Description = p.Description;
-        Price = p.Price;
-        Composition = p.Composition;
+        // Заполняем поля из существующего продукта
+        Name = product.Name;
+        Composition = product.Composition; // ИСПРАВЛЕНО: было Description
+        Price = product.Price;
+        ImageUrl = product.Image;
 
-        SaveCommand = ReactiveCommand.CreateFromTask(SaveToDatabaseAsync);
-        CancelCommand = ReactiveCommand.Create(() => MainViewModel.Instance.ShowProductDetail(p));
-    }
+        var canSave = this.WhenAnyValue(
+            x => x.Name, x => x.Price, x => x.Composition, x => x.IsBusy,
+            (n, p, c, b) => !string.IsNullOrWhiteSpace(n) && p > 0 && !string.IsNullOrWhiteSpace(c) && !b);
 
-    private async Task SaveToDatabaseAsync()
-    {
-        try
+        SaveCommand = ReactiveCommand.CreateFromTask(async () =>
         {
-            using var client = new HttpClient();
-            // ВАЖНО: Без авторизации сервер отклонит PUT запрос
-            ApiService.Authenticate(client);
-
-            var url = $"{ApiService.BaseUrl}/api/goods/products/{_originalProduct.Id}";
-
-            // Формируем объект для JSON. Названия полей должны совпадать с бэкендом
-            var payload = new
+            IsBusy = true;
+            try
             {
-                name = Name,
-                description = Description,
-                price = (double)Price,
-                composition = Composition
-            };
+                // Используем тот же метод добавления/обновления
+                var success = await _goodsService.AddProductAsync(Name, Composition, Price, ImageUrl);
+                if (success)
+                {
+                    // Обновляем данные в живом объекте списка
+                    _targetProduct.Name = Name;
+                    _targetProduct.Composition = Composition;
+                    _targetProduct.Price = Price;
+                    _targetProduct.RefreshRatingUI();
 
-            // Отправляем изменения в базу данных
-            var response = await client.PutAsJsonAsync(url, payload);
-
-            if (response.IsSuccessStatusCode)
-            {
-                // Если сервер принял данные, обновляем локальный объект
-                _originalProduct.Name = Name;
-                _originalProduct.Price = Price;
-                _originalProduct.Description = Description;
-                _originalProduct.Composition = Composition;
-
-                // Возвращаемся в детали товара, где уже будут новые данные
-                MainViewModel.Instance.ShowProductDetail(_originalProduct);
+                    _parent.ShowMainList();
+                }
             }
-            else
+            catch (Exception ex)
             {
-                var errorBody = await response.Content.ReadAsStringAsync();
-                System.Diagnostics.Debug.WriteLine($"[API Error] {response.StatusCode}: {errorBody}");
+                System.Diagnostics.Debug.WriteLine($"Error: {ex.Message}");
             }
-        }
-        catch (Exception ex)
-        {
-            System.Diagnostics.Debug.WriteLine($"[Critical Error] {ex.Message}");
-        }
+            finally { IsBusy = false; }
+        }, canSave);
+
+        CancelCommand = ReactiveCommand.Create(() => _parent.ShowMainList());
     }
 }

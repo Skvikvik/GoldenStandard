@@ -3,7 +3,8 @@ using System.Globalization;
 using System.Net.Http;
 using Avalonia.Data.Converters;
 using Avalonia.Media.Imaging;
-using GoldenStandard.Services; // Чтобы взять ApiService.BaseUrl
+using GoldenStandard.Services;
+using System.IO;
 
 namespace GoldenStandard.Converters
 {
@@ -15,26 +16,23 @@ namespace GoldenStandard.Converters
         {
             if (value is string url && !string.IsNullOrWhiteSpace(url))
             {
-                // Если путь относительный (напр. /media/...), добавляем BaseUrl
-                if (!url.StartsWith("http"))
+                // Если это не полный путь, добавляем BaseUrl
+                if (!url.StartsWith("http") && !url.StartsWith("avares://"))
                 {
                     url = ApiService.BaseUrl.TrimEnd('/') + "/" + url.TrimStart('/');
                 }
 
                 try
                 {
-                    // Внимание: GetResult() — плохо для производительности, 
-                    // но для курсового проекта допустимо.
-                    var response = _httpClient.GetAsync(url).GetAwaiter().GetResult();
-                    if (response.IsSuccessStatusCode)
-                    {
-                        using var stream = response.Content.ReadAsStreamAsync().GetAwaiter().GetResult();
-                        return new Bitmap(stream);
-                    }
+                    // Используем .GetAwaiter().GetResult() только для простых тестов.
+                    // Для реальных приложений лучше async загрузка в самой модели.
+                    var bytes = _httpClient.GetByteArrayAsync(url).GetAwaiter().GetResult();
+                    using var ms = new MemoryStream(bytes);
+                    return new Bitmap(ms);
                 }
                 catch (Exception ex)
                 {
-                    System.Diagnostics.Debug.WriteLine($"[Image Error]: {ex.Message}");
+                    System.Diagnostics.Debug.WriteLine($"[Image Error]: {url} -> {ex.Message}");
                     return null;
                 }
             }

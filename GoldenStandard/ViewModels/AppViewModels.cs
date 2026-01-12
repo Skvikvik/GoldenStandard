@@ -1,5 +1,7 @@
-﻿using GoldenStandard.Models;
+﻿using System.Threading.Tasks;
+using GoldenStandard.Models;
 using ReactiveUI;
+using Avalonia.Threading;
 
 namespace GoldenStandard.ViewModels;
 
@@ -26,7 +28,17 @@ public class MainViewModel : ReactiveObject
 
     public void ShowLogin() => CurrentPage = new LoginViewModel(this);
     public void ShowRegistration() => CurrentPage = new RegistrationViewModel(this);
-    public void ShowList() => CurrentPage = ProductList;
+
+    public void ShowList()
+    {
+        CurrentPage = ProductList;
+        // Используем Dispatcher для безопасного обновления UI из фонового потока
+        Task.Run(async () =>
+        {
+            await ProductList.LoadProductsAsync();
+        });
+    }
+
     public void ShowMainList() => ShowList();
     public void ShowAddProduct() => CurrentPage = new AddProductViewModel(this);
 
